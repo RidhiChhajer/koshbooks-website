@@ -3,6 +3,7 @@
   padding: 0;
   box-sizing: border-box;
   line-height: 1.25;
+  
 }
 
 html {
@@ -16,6 +17,26 @@ body {
 
   --padding-x: 2rem;
 }
+
+#header-img{
+  margin: 15px;
+}
+
+.btn{
+  background-color:rgb(69, 153, 101);;
+  border-radius: 50px;
+  position: absolute;
+  font-size: 16px;
+  right: 50px;
+  padding: 15px;
+  color: white;
+  border: none;
+  position: absolute;
+  top: 3px;
+  margin: 15px;
+}
+
+
 
 h1, h2, h3, h4, h5 {
   font-family: 'Quicksand', sans-serif;
