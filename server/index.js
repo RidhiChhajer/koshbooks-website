@@ -8,6 +8,9 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 
 const app = express();
+const User = require('./models/User');
+const sessionChecker = require('./middleware/control');
+const { sessionChecker, clearCookies } = require('./middleware/control');
 
 dotenv.config();
 app.use(morgan("dev"));
@@ -27,20 +30,7 @@ app.use(
     })
 )
 
-app.use((req, res, next) => {
-    if (req.cookies.user_sid && !req.session.user) {
-        res.clearCookie("user_sid");
-    }
-    next();
-});
-
-const sessionChecker = (req, res, next) => {
-    if (req.session.user && req.cookies.user_sid) {
-        res.redirect("/dashboard");
-    } else {
-        next();
-    }
-};
+app.use(clearCookies());
 
 app.get("/", sessionChecker, (req, res) => {
     res.redirect("/login");
@@ -99,14 +89,14 @@ app
     .post((req, res) => {
         var user = new User({
             username: req.body.username,
-            email: req.body.email,
+            phone: req.body.phone,
             password: req.body.password,
         });
+        console.log(user);
         user.save((err, docs) => {
             if (err) {
                 res.redirect("/signup");
             } else {
-                console.log(docs)
                 req.session.user = docs;
                 res.redirect("/dashboard");
             }
