@@ -1,10 +1,10 @@
 @import url('https://fonts.googleapis.com/css?family=Nunito:400,900|Montserrat|Roboto');
  body {
-	 background-color: white;
+	background: linear-gradient(to right, #3fb6a8, #7ed386);;
 	 z-index: -1;
 }
  .container {
-	 background: linear-gradient(to right, #3fb6a8, #7ed386);
+	 background:white;
 	 opacity: 100%;
 	 width: 1000px;
 	 height: 500px;
@@ -23,7 +23,7 @@
 	 font-size: 1.5em;
 	 letter-spacing: 1px;
 }
- .CTA {
+ /* .CTA {
 	 width: 80px;
 	 height: 40px;
 	 right: -20px;
@@ -45,7 +45,7 @@
  .CTA:hover {
 	 background: #3fb6a8;
 	 transform: scale(1.1);
-}
+} */
  .leftbox {
 	 float: left;
 	 top: -5%;
@@ -72,24 +72,24 @@
  nav a:first-child {
 	 margin-top: 7px;
 }
- .active {
+ /* .active {
 	 color: #3fb6a8;
-}
+} */
  .rightbox {
 	 float: right;
 	 width: 60%;
 	 height: 100%;
 	 padding-left: 20px;
 }
- .profile, .payment, .subscription, .privacy, .settings {
+ /* .profile, .payment, .subscription, .privacy, .settings {
 	 transition: opacity 0.5s ease-in;
 	 position: absolute;
 	 width: 70%;
-}
+} */
  h1 {
 	 font-family: 'Montserrat', sans-serif;
 	 color: #7ed386;
-	 font-size: 1em;
+	 font-size: 3em;
 	 margin-top: 40px;
 	 margin-bottom: 35px;
 }
@@ -98,7 +98,7 @@
 	 font-family: 'Roboto', sans-serif;
 	 width: 80%;
 	 text-transform: uppercase;
-	 font-size: 8px;
+	 font-size: 10px;
 	 letter-spacing: 1px;
 	 margin-left: 2px;
 }
@@ -113,10 +113,10 @@
 	 padding: 7px 0;
 	 color: #070707;
 }
- span {
+ /* span {
 	 font-size: 0.5em;
 	 color: #777;
-}
+} */
  .btn {
 	 float: right;
 	 font-family: 'Roboto', sans-serif;
@@ -129,7 +129,7 @@
 	 text-decoration: underline;
 	 font-weight: 900;
 }
- input {
+ /* input {
 	 border: 1px solid #ddd;
 	 font-family: 'Roboto', sans-serif;
 	 padding: 2px;
@@ -143,17 +143,17 @@
 }
  .noshow {
 	 opacity: 0;
-}
- footer {
-	 position: absolute;
-	 width: 20%;
-	 bottom: 0;
-	 right: -20px;
-	 text-align: right;
-	 font-size: 0.8em;
-	 text-transform: uppercase;
-	 letter-spacing: 2px;
-	 font-family: 'Roboto', sans-serif;
+} */
+/* footer {
+	position: absolute;
+	width: 20%;
+	bottom: 0;
+	right: -20px;
+	text-align: right;
+	font-size: 0.8em;
+	text-transform: uppercase;
+	letter-spacing: 2px;
+	font-family: 'Roboto', sans-serif;
 }
  footer p {
 	 border: none;
@@ -165,10 +165,10 @@
 }
  footer a:hover {
 	 color: #7d7d7d;
-}
- .image {
+} */
+ /* .image {
 	 margin-top: 30px;
-	 padding: 10px;
+	 padding: 20px;
 	 height: 200px;
-	 width: 200px;
-}
+	 width: 300px;
+} */
