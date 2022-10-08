@@ -9,8 +9,8 @@ const cookieParser = require('cookie-parser');
 
 const app = express();
 const User = require('./models/User');
-const sessionChecker = require('./middleware/control');
-const { sessionChecker, clearCookies } = require('./middleware/control');
+const bookRouter = require('./router/bookRouter');
+const { authCheck } = require('./middleware/checkAuth')
 
 dotenv.config();
 app.use(morgan("dev"));
@@ -30,20 +30,34 @@ app.use(
     })
 )
 
-app.use(clearCookies());
+app.use((req, res, next) => {
+    if (req.cookies.user_sid && !req.session.user) {
+        res.clearCookie("user_sid");
+    }
+    next();
+});
+
+const sessionChecker = (req, res, next) => {
+    if (req.session.user && req.cookies.user_sid) {
+        res.redirect("/dashboard");
+    } else {
+        next();
+    }
+};
 
 app.get("/", sessionChecker, (req, res) => {
     res.redirect("/login");
 });
 
-// route for user's dashboard
+app.use("/book", bookRouter);
+
 app.get("/dashboard", (req, res) => {
     if (req.session.user && req.cookies.user_sid) {
         res.sendFile(__dirname + "/public/dashboard.html");
     } else {
-        res.redirect("/login");
+        res.send("<h1>Unauthorized</h1><a href=\"/login\">Login</a>");
     }
-});
+})
 
 // route for user logout
 app.get("/logout", (req, res) => {
@@ -91,8 +105,8 @@ app
             username: req.body.username,
             phone: req.body.phone,
             password: req.body.password,
+            role: req.body.phone === process.env.ADMIN_PHONE ? "ADMIN" : "USER",
         });
-        console.log(user);
         user.save((err, docs) => {
             if (err) {
                 res.redirect("/signup");
@@ -105,7 +119,7 @@ app
 
 // route for handling 404 requests(unavailable routes)
 app.use(function (req, res, next) {
-    res.status(404).send("Sorry can't find that!");
+    res.status(404).send("<h1>Sorry page not found !!</h1>");
 });
 
 const CONNECTION_URL = 'mongodb://localhost:27017/koshbooks';
