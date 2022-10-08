@@ -45,18 +45,25 @@ const sessionChecker = (req, res, next) => {
     }
 };
 
+
+//route for landing page , shown even when not logged in
 app.get("/", sessionChecker, (req, res) => {
-    res.redirect("/login");
+    res.sendFile(__dirname + "/public/landingPage/lp.html");
 });
 
 app.use("/book", bookRouter);
 
-app.get("/dashboard", (req, res) => {
+app.get("/profile/:id", (req, res) => {
     if (req.session.user && req.cookies.user_sid) {
-        res.sendFile(__dirname + "/public/dashboard.html");
+        res.sendFile(__dirname + "/public/profile/profile.html");
     } else {
         res.send("<h1>Unauthorized</h1><a href=\"/login\">Login</a>");
     }
+})
+
+//route for explore, no login needed
+app.get("/explore", (req, res) => {
+    res.sendFile(__dirname + "/public/explore/explore.html");
 })
 
 // route for user logout
@@ -69,10 +76,28 @@ app.get("/logout", (req, res) => {
     }
 });
 
+//route for cart
+app.get("/cart/:id", (req, res) => {
+    if (req.session.user && req.cookies.user_sid) {
+        res.sendFile(__dirname + "/public/cart/cart.html");
+    } else {
+        res.send("<h1>Unauthorized</h1><a href=\"/login\">Login</a>");
+    }
+});
+
+app.get("/wishlist/:id", (req, res) => {
+    if (req.session.user && req.cookies.user_sid) {
+        res.sendFile(__dirname + "/public/wishlist/wishlist.html");
+    } else {
+        res.send("<h1>Unauthorized</h1><a href=\"/login\">Login</a>");
+    }
+});
+
+
 app
     .route("/login")
     .get(sessionChecker, (req, res) => {
-        res.sendFile(__dirname + "/public/login.html");
+        res.sendFile(__dirname + "/public/login/login.html");
     })
     .post(async (req, res) => {
         var username = req.body.username,
@@ -89,7 +114,7 @@ app
                 }
             });
             req.session.user = user;
-            res.redirect("/dashboard");
+            res.redirect("/explore");
         } catch (error) {
             console.log(error)
         }
@@ -98,7 +123,7 @@ app
 app
     .route("/signup")
     .get(sessionChecker, (req, res) => {
-        res.sendFile(__dirname + "/public/signup.html");
+        res.sendFile(__dirname + "/public/login/login.html");
     })
     .post((req, res) => {
         var user = new User({
@@ -112,7 +137,7 @@ app
                 res.redirect("/signup");
             } else {
                 req.session.user = docs;
-                res.redirect("/dashboard");
+                res.redirect("/explore");
             }
         });
     });
