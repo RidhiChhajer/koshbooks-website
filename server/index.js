@@ -13,10 +13,18 @@ const bookRouter = require('./router/bookRouter');
 const { authCheck } = require('./middleware/checkAuth')
 
 dotenv.config();
+app.use(express.static("./public/landingPage"));
+app.use(express.static("./public/explore"));
+app.use(express.static("./public/cart"));
+app.use(express.static("./public/login"));
+app.use(express.static("./public/profile"));
+app.use(express.static("./public/wishlist"));
+app.use(express.static("./public/ccu"));
 app.use(morgan("dev"));
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
+
 
 app.use(
     session({
