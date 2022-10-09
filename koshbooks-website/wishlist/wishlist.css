@@ -318,6 +318,10 @@
 	 letter-spacing: -0.025em;
 	 width: 35%;
 }
+
+/* added by ridhi */
+
+
  @media only screen and (max-width: 39.375em) {
 	 .wrap {
 		 width: 98%;
