@@ -66,7 +66,8 @@ app.get("/profile", (req, res) => {
     if (req.session.user && req.cookies.user_sid) {
         res.sendFile(__dirname + "/public/profile/profile.html");
     } else {
-        res.send("<h1>Unauthorized</h1><a href=\"/login\">Login</a>");
+        // res.send("<h1>Unauthorized</h1><a href=\"/login\">Login</a>");
+        res.redirect("/login");
     }
 })
 
@@ -90,7 +91,8 @@ app.get("/cart", (req, res) => {
     if (req.session.user && req.cookies.user_sid) {
         res.sendFile(__dirname + "/public/cart/cart.html");
     } else {
-        res.send("<h1>Unauthorized</h1><a href=\"/login\">Login</a>");
+        // res.send("<h1>Unauthorized</h1><a href=\"/login\">Login</a>");
+        res.redirect("/login");
     }
 });
 //route for wishlist, individual id based wishlist from database
@@ -98,7 +100,8 @@ app.get("/wishlist", (req, res) => {
     if (req.session.user && req.cookies.user_sid) {
         res.sendFile(__dirname + "/public/wishlist/wishlist.html");
     } else {
-        res.send("<h1>Unauthorized</h1><a href=\"/login\">Login</a>");
+        // res.send("<h1>Unauthorized</h1><a href=\"/login\">Login</a>");
+        res.redirect("/login");
     }
 });
 

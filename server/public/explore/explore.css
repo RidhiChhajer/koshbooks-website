@@ -80,6 +80,7 @@ header {
   position: relative;
   height: auto;
   width: 100%;
+  padding: 10px;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
 }
@@ -287,7 +288,7 @@ nav .icon-links {
 =================================== */
 
 .featured-product {
-  padding-top: 3.6rem;
+  padding-top: 0;
 }
 
 .featured-products {
@@ -403,6 +404,7 @@ nav .icon-links {
   width: 100%;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
+  text-align: center;
 }
 
 .product-wrap .product-description .product-name {
@@ -410,10 +412,19 @@ nav .icon-links {
   font-size: 1.4rem;
   font-weight: bold;
   text-align: center;
+  margin: 0px;
+  padding: 0px;
+}
+
+.author{
+  text-align: center;
+  margin: 0px;
+  color: #413F42;
 }
 
 .product-wrap .product-description > .price {
   font-size: 1.1rem;
+  margin: 0px;
 }
 
 .product-description .price {
@@ -1258,7 +1269,13 @@ footer p a {
 .icon-twitter:before {
   content: "\e91a";
 }
-© 2022 GitHub, Inc.
+
+/* added by Ridhi */
+.bd-btn{
+  padding: 10px;
+}
+
+
 @media screen and (max-width: 1120px) {
     nav .navbar {
         display: none;
@@ -1528,6 +1545,8 @@ footer p a {
 }
 .btn{
   padding: 10px;
+  text-align: center;
+  margin: 7px;
 }
 
 @media screen and (max-width: 340px) {
