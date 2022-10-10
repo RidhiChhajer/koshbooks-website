@@ -214,13 +214,11 @@ nav .navbar {
   font-size: 1rem;
 }
 
-<<<<<<< HEAD
-=======
+
 /* css added by Ridhi */
 #icon-shopping-cart{
 
 }
->>>>>>> 0da4dfd (profile and cart page added)
 nav .icon-links {
   margin-right: 2.8rem;
   display: -webkit-box;
@@ -234,10 +232,7 @@ nav .icon-links {
 .icon-links div {
   position: relative;
   margin-right: 1.6rem;
-<<<<<<< HEAD
-=======
   padding: 10px;
->>>>>>> 0da4dfd (profile and cart page added)
 }
 
 .icon-links div span {

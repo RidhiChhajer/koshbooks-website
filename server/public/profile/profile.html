@@ -4,10 +4,57 @@
     <meta charset="utf-8">
     <title></title>
     <link rel="stylesheet" href="profile.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="icon.css">
+    <link rel="stylesheet" href="../explore/explore.css">
+    <link rel="stylesheet" href="responsive.css">
   </head>
   <body>
+    <header id="header">
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+
+        <div class="logo">
+          <img class="logo-img" src="https://raw.githubusercontent.com/RidhiChhajer/koshbooks-website/main/koshbooks-website/explore/logo-removebg-preview.png" alt="logo">
+        </div>
+
+
+        <div class="search-box">
+          <div class="search-icon">
+            <!-- <span class="icon-search"></span> -->
+            <i class="fa-solid fa-magnifying-glass"></i>
+          </div>
+          <input type="text" placeholder="Search...">
+        </div>
+
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+
+        <div class="section-title collapse navbar-collapse" id="navbarSupportedContent">
+
+          <!-- </p>Books</p> -->
+
+          <form action="../cart/cart.html">
+            <button class="btn" type="submit"><i class="shopping-cart fa-solid fa-cart-shopping"></i> cart</button>
+          </form>
+
+          <form action="../wishlist/wishlist.html">
+            <button class="btn" type="submit"><i class="fa-solid fa-heart"></i> wishlist</button>
+          </form>
+
+          <form action="../profile/profile.html">
+            <button class="btn" type="submit"><i class="fa-solid fa-user"></i> profile</button>
+          </form>
+
+        </div>
+
+      </nav>
+    </header>
     <div class="container">
-    
+
       <!-- <img class="image" src="/signup/logo-removebg-preview.png"></img> -->
 
       <div class="rightbox">
@@ -24,7 +71,7 @@
           <h2>Password </h2>
           <p>••••••• <button class="btn">Change</button></p>
         </div>
- 
+
       </div>
     </div>
     <script src="profile.js" charset="utf-8"></script>
