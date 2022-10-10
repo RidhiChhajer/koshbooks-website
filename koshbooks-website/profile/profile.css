@@ -7,10 +7,10 @@
 	 background:white;
 	 opacity: 100%;
 	 width: 1000px;
-	 height: 500px;
+	 height: 550px;
 	 margin: 0 auto;
 	 position: relative;
-	 margin-top: 10%;
+	 margin-top: 2rem;
 	 box-shadow: 2px 5px 20px rgba(119, 119, 119, .5);
 }
  .logo {
@@ -23,29 +23,7 @@
 	 font-size: 1.5em;
 	 letter-spacing: 1px;
 }
- /* .CTA {
-	 width: 80px;
-	 height: 40px;
-	 right: -20px;
-	 bottom: 0;
-	 margin-bottom: 90px;
-	 position: absolute;
-	 z-index: 1;
-	 background: #7ed386;
-	 font-size: 1em;
-	 transform: rotate(-90deg);
-	 transition: all 0.5s ease-in-out;
-	 cursor: pointer;
-}
- .CTA h1 {
-	 color: #fff;
-	 margin-top: 10px;
-	 margin-left: 9px;
-}
- .CTA:hover {
-	 background: #3fb6a8;
-	 transform: scale(1.1);
-} */
+
  .leftbox {
 	 float: left;
 	 top: -5%;
@@ -117,7 +95,7 @@
 	 font-size: 0.5em;
 	 color: #777;
 } */
- .btn {
+ .btn1 {
 	 float: right;
 	 font-family: 'Roboto', sans-serif;
 	 text-transform: uppercase;
@@ -129,46 +107,3 @@
 	 text-decoration: underline;
 	 font-weight: 900;
 }
- /* input {
-	 border: 1px solid #ddd;
-	 font-family: 'Roboto', sans-serif;
-	 padding: 2px;
-	 margin: 0;
-}
- .privacy h2 {
-	 margin-top: 25px;
-}
- .settings h2 {
-	 margin-top: 25px;
-}
- .noshow {
-	 opacity: 0;
-} */
-/* footer {
-	position: absolute;
-	width: 20%;
-	bottom: 0;
-	right: -20px;
-	text-align: right;
-	font-size: 0.8em;
-	text-transform: uppercase;
-	letter-spacing: 2px;
-	font-family: 'Roboto', sans-serif;
-}
- footer p {
-	 border: none;
-	 padding: 0;
-}
- footer a {
-	 color: #fff;
-	 text-decoration: none;
-}
- footer a:hover {
-	 color: #7d7d7d;
-} */
- /* .image {
-	 margin-top: 30px;
-	 padding: 20px;
-	 height: 200px;
-	 width: 300px;
-} */
