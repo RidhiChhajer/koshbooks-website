@@ -1,6 +1,6 @@
-@import "compass/css3";
+/* @import "compass/css3"; */
  @import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,400italic|Montserrat:400,700);
- @import "compass/reset";
+ /* @import "compass/reset"; */
  * {
 	 box-sizing: border-box;
 }
@@ -12,6 +12,8 @@
  img {
 	 max-width: 100%;
 }
+
+
  .cf:before, .cf:after {
 	 content: " ";
 	 display: table;
@@ -251,44 +253,9 @@
 	 border: 1px solid #f69679;
 	 background: #f69679;
 }
- .btn:link, .btn:visited {
-	 text-decoration: none;
-	 font-family: 'Montserrat', sans-serif;
-	 letter-spacing: -0.015em;
-	 font-size: 1em;
-	 padding: 1em 3em;
-	 color: #fff;
-	 background: #82ca9c;
-	 font-weight: bold;
-	 border-radius: 50px;
-	 float: right;
-	 text-align: right;
-	 -webkit-transition: all 0.25s linear;
-	 -moz-transition: all 0.25s linear;
-	 -ms-transition: all 0.25s linear;
-	 -o-transition: all 0.25s linear;
-	 transition: all 0.25s linear;
-}
- .btn:after {
-	 content: "\276f";
-	 padding: 0.5em;
-	 position: relative;
-	 right: 0;
-	 -webkit-transition: all 0.15s linear;
-	 -moz-transition: all 0.15s linear;
-	 -ms-transition: all 0.15s linear;
-	 -o-transition: all 0.15s linear;
-	 transition: all 0.15s linear;
-}
- .btn:hover, .btn:focus, .btn:active {
-	 background: #f69679;
-}
- .btn:hover:after, .btn:focus:after, .btn:active:after {
-	 right: -10px;
-}
  .promoCode .btn {
 	 font-size: 0.85em;
-	 paddding: 0.5em 2em;
+	 padding: 0.5em 2em;
 }
 /* TOTAL AND CHECKOUT */
  .subtotal {

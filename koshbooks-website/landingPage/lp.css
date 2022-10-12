@@ -23,7 +23,7 @@ body {
 }
 
 .btn{
-  background-color:rgb(69, 153, 101);;
+  background-color:rgb(69, 153, 101);
   border-radius: 50px;
   position: absolute;
   font-size: 16px;
@@ -52,8 +52,11 @@ h1, h2, h3, h4, h5 {
   z-index: 20;
   padding: .5rem var(--padding-x);
   transition: all 0.3s ease-out;
+}
 
-  --hover-color: #fff;
+#header:hover{
+  /* --hover-color: #fff; */
+  color: #fff;
 }
 
 #header.header-active {
