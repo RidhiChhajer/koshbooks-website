@@ -13,6 +13,7 @@ const bookRouter = require('./router/bookRouter');
 const { authCheck } = require('./middleware/checkAuth')
 
 dotenv.config();
+app.use(express.static("./public/bookDetails"));
 app.use(express.static("./public/landingPage"));
 app.use(express.static("./public/explore"));
 app.use(express.static("./public/cart"));
@@ -66,6 +67,10 @@ app.get("/explore", (req, res) => {
     res.sendFile(__dirname + "/public/explore/explore.html");
 })
 
+app.get("/confirmation", (req, res) => {
+    res.sendFile(__dirname + "/public/bookDetails/bd.html");
+})
+
 //route for bookdetails
 app.get("/bookdetails", (req, res) => {
     res.sendFile(__dirname + "/public/bookDetails/bd.html");
@@ -73,12 +78,12 @@ app.get("/bookdetails", (req, res) => {
 
 //route for cart, individual id based cart from database
 app.get("/cart", (req, res) => {
-    if (req.session.user && req.cookies.user_sid) {
+    // if (req.session.user && req.cookies.user_sid) {
         res.sendFile(__dirname + "/public/cart/cart.html");
-    } else {
+    // } else {
         // res.send("<h1>Unauthorized</h1><a href=\"/login\">Login</a>");
-        res.redirect("/login");
-    }
+    //     res.redirect("/login");
+    // }
 });
 //route for wishlist, individual id based wishlist from database
 app.get("/wishlist", (req, res) => {
