@@ -40,7 +40,7 @@ body {
 }
 
 .section-title p {
-  margin-left: 0.4rem;
+  /* margin-left: 0.4rem; */
   color: #2e2e3f;
   font-size: 1.2rem;
   font-weight: bold;
@@ -293,7 +293,7 @@ nav .icon-links {
 }
 
 .featured-products {
-  padding-top: 1rem;
+  padding: 3rem;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -851,286 +851,7 @@ input[type="number"] {
   pointer-events: auto;
 }
 
-/* ============================
-    Confirmation Box Area End
-============================== */
 
-/* =========================================
-    buying details/shoping cart area start
-=========================================== */
-
-.buying-details-area {
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 100vh;
-  width: 100%;
-  overflow: auto;
-  background: #fff;
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-  -webkit-transform: scale(0.4);
-  -ms-transform: scale(0.4);
-  transform: scale(0.4);
-  -webkit-transition: all 0.3s ease;
-  -o-transition: all 0.3s ease;
-  transition: all 0.3s ease;
-  z-index: 9999999;
-}
-
-.buying-details-area.active-buying-details {
-  opacity: 1;
-  visibility: visible;
-  pointer-events: auto;
-  -webkit-transform: scale(1);
-  -ms-transform: scale(1);
-  transform: scale(1);
-}
-
-.buying-details-area .buying-details-wrap {
-  padding: 2rem;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-}
-
-.buying-details-wrap .shop-title {
-  width: 100%;
-  padding: 1rem 0 2rem 0;
-}
-
-.shop-title h1 {
-  padding-bottom: 0.4rem;
-  position: relative;
-  color: green;
-  font-size: 2rem;
-  text-align: center;
-  text-transform: uppercase;
-}
-
-.shop-title h1::before {
-  position: absolute;
-  content: "";
-  bottom: 0;
-  left: 50%;
-  -webkit-transform: translateX(-50%);
-  -ms-transform: translateX(-50%);
-  transform: translateX(-50%);
-  height: 0.2rem;
-  width: 8rem;
-  background: green;
-  border-radius: 1rem;
-}
-
-.shopping-details-wrap {
-  width: 100%;
-}
-
-.shopping-details-header {
-  width: 100%;
-  border-bottom: 2px solid silver;
-}
-
-.shopping-details {
-  width: 100%;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: justify;
-  -ms-flex-pack: justify;
-  justify-content: space-between;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-}
-
-.shopping-details div {
-  padding: 0.8rem 1rem;
-  margin: 1px;
-  -ms-flex-preferred-size: 13%;
-  flex-basis: 13%;
-}
-
-.shopping-details .shop-detail {
-  background: #eee;
-}
-
-.shopping-details div h2 {
-  color: #222;
-  font-size: 1.4rem;
-}
-
-.shopping-details div p {
-  color: #222;
-  font-size: 1.1rem;
-}
-
-.shopping-details div.product-sl {
-  -ms-flex-preferred-size: 7%;
-  flex-basis: 7%;
-}
-
-#remove-all-items,
-.remove-shop-item {
-  color: red;
-  font-size: 1.4rem;
-  font-family: "Averia Serif Libre", cursive;
-  background: transparent;
-  border: none;
-  outline: none;
-  border-radius: 0.1rem;
-  cursor: pointer;
-}
-
-.remove-shop-item {
-  font-size: 1.2rem;
-}
-
-.close-buy-area {
-  position: fixed;
-  top: 1.4rem;
-  right: 2rem;
-  height: 2.2rem;
-  width: 2.2rem;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  cursor: pointer;
-  border-radius: 0.2rem;
-}
-
-#close-buy-area-btn {
-  position: relative;
-}
-
-#close-buy-area-btn::before {
-  position: absolute;
-  content: "";
-  top: 0;
-  left: 50%;
-  -webkit-transform: translateX(-50%) rotate(45deg);
-  -ms-transform: translateX(-50%) rotate(45deg);
-  transform: translateX(-50%) rotate(45deg);
-  height: 0.2rem;
-  width: 1.2rem;
-  background: gray;
-  border-radius: 1rem;
-}
-
-#close-buy-area-btn::after {
-  position: absolute;
-  content: "";
-  top: 0;
-  left: 50%;
-  -webkit-transform: translateX(-50%) rotate(-45deg);
-  -ms-transform: translateX(-50%) rotate(-45deg);
-  transform: translateX(-50%) rotate(-45deg);
-  height: 0.2rem;
-  width: 1.2rem;
-  background: gray;
-  border-radius: 1rem;
-}
-
-.buying-details-footer {
-  padding-top: 0.6rem;
-  width: 100%;
-  border-top: 2px solid silver;
-  display: none;
-}
-
-.buying-details-footer.active-buying-details-footer {
-  display: block;
-}
-
-.buying-details-footer .calculate-buying-details div {
-  width: 380px;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  border-bottom: 1px solid #eee;
-}
-
-.calculate-buying-details div h2 {
-  color: #222;
-  width: 160px;
-  padding-top: 0.4rem;
-  font-size: 1.4rem;
-  font-weight: 500;
-}
-
-.calculate-buying-details div p {
-  color: crimson;
-  width: auto;
-  padding-top: 0.4rem;
-  font-size: 1.4rem;
-  font-weight: 500;
-}
-
-.buying-details-wrap .confirm-order-button {
-  margin-top: 1rem;
-}
-
-.buying-details-wrap #confirm-order-btn {
-  padding: 0.5rem 1rem;
-  color: #fff;
-  font-size: 1rem;
-  font-family: "Averia Serif Libre", cursive;
-  background: green;
-  border: none;
-  outline: none;
-  border-radius: 0.1rem;
-  cursor: pointer;
-}
-
-/* =========================================
-    buying details/shoping cart area end
-=========================================== */
-
-/* ==========================
-    Shopping Cart Area End
-============================ */
-
-/* ====================
-    Footer Area Start
-====================== */
-
-footer {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  height: 10vh;
-  width: 100%;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  background: #211e25;
-  border-top: 1px solid #555;
-}
-
-footer p {
-  color: #fff;
-  font-size: 1.2rem;
-}
-
-footer p a {
-  color: #9fcf3d;
-  text-decoration: none;
-}
-
-/* ==================
-    Footer Area End
-==================== */
 @font-face {
   font-family: 'icomoon';
   src: url('fonts/icomoon.eot?f7uldj');
@@ -1274,6 +995,11 @@ footer p a {
 /* added by Ridhi */
 .bd-btn{
   padding: 10px;
+}
+h1{
+  margin-left: 4rem;
+  font-family: Montserrat;
+  font-weight: bold;
 }
 
 
