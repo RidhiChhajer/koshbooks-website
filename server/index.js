@@ -13,10 +13,19 @@ const bookRouter = require('./router/bookRouter');
 const { authCheck } = require('./middleware/checkAuth')
 
 dotenv.config();
+app.use(express.static("./public/bookDetails"));
+app.use(express.static("./public/landingPage"));
+app.use(express.static("./public/explore"));
+app.use(express.static("./public/cart"));
+app.use(express.static("./public/login"));
+app.use(express.static("./public/profile"));
+app.use(express.static("./public/wishlist"));
+app.use(express.static("./public/ccu"));
 app.use(morgan("dev"));
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
+
 
 app.use(
     session({
@@ -53,17 +62,47 @@ app.get("/", sessionChecker, (req, res) => {
 
 app.use("/book", bookRouter);
 
-app.get("/profile/:id", (req, res) => {
-    if (req.session.user && req.cookies.user_sid) {
-        res.sendFile(__dirname + "/public/profile/profile.html");
-    } else {
-        res.send("<h1>Unauthorized</h1><a href=\"/login\">Login</a>");
-    }
-})
-
 //route for explore, no login needed
 app.get("/explore", (req, res) => {
     res.sendFile(__dirname + "/public/explore/explore.html");
+})
+
+app.get("/confirmation", (req, res) => {
+    res.sendFile(__dirname + "/public/bookDetails/bd.html");
+})
+
+//route for bookdetails
+app.get("/bookdetails", (req, res) => {
+    res.sendFile(__dirname + "/public/bookDetails/bd.html");
+})
+
+//route for cart, individual id based cart from database
+app.get("/cart", (req, res) => {
+    // if (req.session.user && req.cookies.user_sid) {
+        res.sendFile(__dirname + "/public/cart/cart.html");
+    // } else {
+        // res.send("<h1>Unauthorized</h1><a href=\"/login\">Login</a>");
+    //     res.redirect("/login");
+    // }
+});
+//route for wishlist, individual id based wishlist from database
+app.get("/wishlist", (req, res) => {
+    // if (req.session.user && req.cookies.user_sid) {
+        res.sendFile(__dirname + "/public/wishlist/wishlist.html");
+    // } else {
+    //     // res.send("<h1>Unauthorized</h1><a href=\"/login\">Login</a>");
+    //     res.redirect("/login");
+    // }
+});
+
+//route for profile, individual id based profile from database
+app.get("/profile", (req, res) => {
+    // if (req.session.user && req.cookies.user_sid) {
+        res.sendFile(__dirname + "/public/profile/profile.html");
+    // } else {
+    //     // res.send("<h1>Unauthorized</h1><a href=\"/login\">Login</a>");
+    //     res.redirect("/login");
+    // }
 })
 
 // route for user logout
@@ -75,24 +114,6 @@ app.get("/logout", (req, res) => {
         res.redirect("/login");
     }
 });
-
-//route for cart
-app.get("/cart/:id", (req, res) => {
-    if (req.session.user && req.cookies.user_sid) {
-        res.sendFile(__dirname + "/public/cart/cart.html");
-    } else {
-        res.send("<h1>Unauthorized</h1><a href=\"/login\">Login</a>");
-    }
-});
-
-app.get("/wishlist/:id", (req, res) => {
-    if (req.session.user && req.cookies.user_sid) {
-        res.sendFile(__dirname + "/public/wishlist/wishlist.html");
-    } else {
-        res.send("<h1>Unauthorized</h1><a href=\"/login\">Login</a>");
-    }
-});
-
 
 app
     .route("/login")

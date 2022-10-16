@@ -745,6 +745,12 @@ removeAllShopItems.onclick = () => {
     alert("No items found in shopping cart");
   }
 };
+heart.onclick() = () => {
+  function() {
+    $(this).toggleClass("is-active");
+  }
+};
+
 
 // =====================================
 //    Product Items Controll Area End
