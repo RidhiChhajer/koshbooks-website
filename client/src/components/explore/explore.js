@@ -116,16 +116,16 @@ let isSelectedItemActive = true;
 
 // Cart header menu switch and show/hide total items counter
 for (let i = 0; i < cartContentMenu.length; i++) {
-  cartContentMenu[i].addEventListener("click", function () {
+  cartContentMenu[ i ].addEventListener("click", function () {
     for (let j = 0; j < cartContentMenu.length; j++) {
-      cartContentMenu[j].classList.remove("active-cart-menu");
-      shoppingCartContentsArea[j].classList.remove("active-cart-content");
+      cartContentMenu[ j ].classList.remove("active-cart-menu");
+      shoppingCartContentsArea[ j ].classList.remove("active-cart-content");
       totalSelectedProduct.classList.remove("active-product-counter");
       totalFavoriteProduct.classList.remove("active-product-counter");
     }
-    cartContentMenu[i].classList.add("active-cart-menu");
-    shoppingCartContentsArea[i].classList.add("active-cart-content");
-    if (cartContentMenu[i].getAttribute("id") === "selected-products") {
+    cartContentMenu[ i ].classList.add("active-cart-menu");
+    shoppingCartContentsArea[ i ].classList.add("active-cart-content");
+    if (cartContentMenu[ i ].getAttribute("id") === "selected-products") {
       totalSelectedProduct.classList.add("active-product-counter");
       if (countSelectedItem > 0) {
         buyingProductContent.classList.add("acvie-buying-title");
@@ -151,9 +151,9 @@ for (let i = 0; i < cartContentMenu.length; i++) {
 }
 
 for (let i = 0; i < addToCartBtn.length; i++) {
-  addedToCart[i] = false;
-  addedForBuy[i] = false;
-  addedToFavorite[i] = false;
+  addedToCart[ i ] = false;
+  addedForBuy[ i ] = false;
+  addedToFavorite[ i ] = false;
 }
 
 // Create items for selected product content
@@ -187,40 +187,40 @@ function createSelectedProductsContent(
   let newPara = [];
   let newStrong = [];
   for (let i = 0; i < 6; i++) {
-    newPara[i] = document.createElement("p");
-    newStrong[i] = document.createElement("strong");
+    newPara[ i ] = document.createElement("p");
+    newStrong[ i ] = document.createElement("strong");
   }
 
-  newStrong[0].textContent = "Product name: ";
-  newStrong[1].textContent = "Price: ";
-  newStrong[2].textContent = "Discount: ";
-  newStrong[3].textContent = "Quantity: ";
-  newStrong[5].textContent = "Added Time: ";
+  newStrong[ 0 ].textContent = "Product name: ";
+  newStrong[ 1 ].textContent = "Price: ";
+  newStrong[ 2 ].textContent = "Discount: ";
+  newStrong[ 3 ].textContent = "Quantity: ";
+  newStrong[ 5 ].textContent = "Added Time: ";
 
   for (let i = 0; i < 6; i++) {
-    newPara[i].appendChild(newStrong[i]);
+    newPara[ i ].appendChild(newStrong[ i ]);
   }
 
   let newInput = document.createElement("input");
   newInput.setAttribute("type", "number");
-  newPara[3].appendChild(newInput);
+  newPara[ 3 ].appendChild(newInput);
 
   let newQuantitySpan = document.createElement("span");
   newQuantitySpan.innerHTML = "QTY";
   newQuantitySpan.style.paddingLeft = "0.4rem";
-  newPara[3].appendChild(newQuantitySpan);
+  newPara[ 3 ].appendChild(newQuantitySpan);
 
   let newSpan = [];
   for (let i = 0; i < 3; i++) {
-    newSpan[i] = document.createElement("span");
+    newSpan[ i ] = document.createElement("span");
   }
 
-  newSpan[0].textContent = name;
-  newSpan[1].textContent = price + "RS";
-  newSpan[2].textContent = discount + "%";
+  newSpan[ 0 ].textContent = name;
+  newSpan[ 1 ].textContent = price + "RS";
+  newSpan[ 2 ].textContent = discount + "%";
 
   for (let i = 0; i < 3; i++) {
-    newPara[i].appendChild(newSpan[i]);
+    newPara[ i ].appendChild(newSpan[ i ]);
   }
 
   let preservativeSpan = document.createElement("span");
@@ -229,29 +229,29 @@ function createSelectedProductsContent(
   let timeSpan = document.createElement("span");
   timeSpan.textContent = time;
 
-  newPara[5].appendChild(timeSpan);
+  newPara[ 5 ].appendChild(timeSpan);
 
   let newShoppingButton = [];
 
   for (let i = 0; i < 2; i++) {
-    newShoppingButton[i] = document.createElement("button");
+    newShoppingButton[ i ] = document.createElement("button");
   }
 
-  newShoppingButton[0].textContent = "Add to Buy";
-  newShoppingButton[1].textContent = "Remove Item";
+  newShoppingButton[ 0 ].textContent = "Add to Buy";
+  newShoppingButton[ 1 ].textContent = "Remove Item";
 
-  newShoppingButton[0].setAttribute("class", "add-to-buy-btn");
-  newShoppingButton[1].setAttribute("class", "remove-item-btn");
+  newShoppingButton[ 0 ].setAttribute("class", "add-to-buy-btn");
+  newShoppingButton[ 1 ].setAttribute("class", "remove-item-btn");
 
   // Adding children to parent element
   newCartDetails.appendChild(newHeading2);
 
   for (let i = 0; i < 6; i++) {
-    newCartDetails.appendChild(newPara[i]);
+    newCartDetails.appendChild(newPara[ i ]);
   }
 
   for (let i = 0; i < 2; i++) {
-    newCartDetails.appendChild(newShoppingButton[i]);
+    newCartDetails.appendChild(newShoppingButton[ i ]);
   }
 
   newCartContent.appendChild(newCartImageArea);
@@ -305,16 +305,16 @@ function getAddedTime() {
 
 // Add items to selected products
 function addItemsToSelectedProducts(productIndex) {
-  addToCartBtn[productIndex].style.background = "orangered";
-  addToCartBtn[productIndex].innerHTML =
+  addToCartBtn[ productIndex ].style.background = "orangered";
+  addToCartBtn[ productIndex ].innerHTML =
     '<span class="icon-cart-arrow-down"></span> Added';
-  let productCartImage = productImage[productIndex].src;
-  let productCartName = productName[productIndex].textContent;
-  let productCartPrice = productPrice[productIndex].textContent;
-  let productCartDiscount = productDiscount[productIndex].textContent;
+  let productCartImage = productImage[ productIndex ].src;
+  let productCartName = productName[ productIndex ].textContent;
+  let productCartPrice = productPrice[ productIndex ].textContent;
+  let productCartDiscount = productDiscount[ productIndex ].textContent;
   let preservativeName = " ";
   let addedTime = getAddedTime();
-  newCartContent[productIndex] = createSelectedProductsContent(
+  newCartContent[ productIndex ] = createSelectedProductsContent(
     productCartImage,
     productCartName,
     productCartPrice,
@@ -323,23 +323,23 @@ function addItemsToSelectedProducts(productIndex) {
     addedTime
   );
   cartContentArea.insertBefore(
-    newCartContent[productIndex],
+    newCartContent[ productIndex ],
     cartContentArea.firstChild
   );
 }
 
 // Remove Items to selected products
 function removeItemsToSelectedProducts(productIndex) {
-  addToCartBtn[productIndex].style.background = "#459122";
-  addToCartBtn[productIndex].innerHTML =
+  addToCartBtn[ productIndex ].style.background = "#459122";
+  addToCartBtn[ productIndex ].innerHTML =
     '<span class="icon-cart-plus"></span> Add to Cart';
-  cartContentArea.removeChild(newCartContent[productIndex]);
+  cartContentArea.removeChild(newCartContent[ productIndex ]);
 }
 
 // Active add to cart button of favorite item
 function activeFavoriteItemAddToCartBtn(productIndex) {
   let favoriteItemAddToCartBtn =
-    newfavoriteItem[productIndex].children[2].children[2].children[0];
+    newfavoriteItem[ productIndex ].children[ 2 ].children[ 2 ].children[ 0 ];
   favoriteItemAddToCartBtn.style.background = "orangered";
   favoriteItemAddToCartBtn.innerHTML =
     '<span class="icon-cart-arrow-down"></span> Added';
@@ -348,7 +348,7 @@ function activeFavoriteItemAddToCartBtn(productIndex) {
 // Deactive add to cart button of favorite item
 function deactiveFavoriteItemAddToCartBtn(productIndex) {
   let favoriteItemAddToCartBtn =
-    newfavoriteItem[productIndex].children[2].children[2].children[0];
+    newfavoriteItem[ productIndex ].children[ 2 ].children[ 2 ].children[ 0 ];
   favoriteItemAddToCartBtn.style.background = "#459122";
   favoriteItemAddToCartBtn.innerHTML =
     '<span class="icon-cart-plus"></span> Add to Cart';
@@ -364,17 +364,17 @@ function favoriteContentWrapper() {
 
 // Add items to favorite products
 function addItemsToFavoriteProducts(productIndex) {
-  favoriteIcon[productIndex].style.background = "orangered";
-  clone = productItem[productIndex].cloneNode(true);
+  favoriteIcon[ productIndex ].style.background = "orangered";
+  let clone = productItem[ productIndex ].cloneNode(true);
   let favoriteContentWrap = favoriteContentWrapper();
-  newfavoriteItem[productIndex] = favoriteContentWrap.appendChild(clone);
-  cartWishlistArea.appendChild(newfavoriteItem[productIndex]);
+  newfavoriteItem[ productIndex ] = favoriteContentWrap.appendChild(clone);
+  cartWishlistArea.appendChild(newfavoriteItem[ productIndex ]);
 }
 
 // Remove items to favorite products
 function removeItemsToFavoriteProducts(productIndex) {
-  favoriteIcon[productIndex].style.background = "#61790a";
-  cartWishlistArea.removeChild(newfavoriteItem[productIndex]);
+  favoriteIcon[ productIndex ].style.background = "#61790a";
+  cartWishlistArea.removeChild(newfavoriteItem[ productIndex ]);
 }
 
 // Show confirmation box
@@ -415,22 +415,22 @@ function createShoppingCartItem(
   let newChildDiv = [];
 
   for (let i = 0; i < 8; i++) {
-    newChildDiv[i] = document.createElement("div");
+    newChildDiv[ i ] = document.createElement("div");
   }
 
-  newChildDiv[0].setAttribute("class", "product-sl");
-  newChildDiv[1].setAttribute("class", "product-name");
-  newChildDiv[2].setAttribute("class", "regular-price");
-  newChildDiv[3].setAttribute("class", "discount");
-  newChildDiv[4].setAttribute("class", "present-price");
-  newChildDiv[5].setAttribute("class", "product-quantity");
-  newChildDiv[6].setAttribute("class", "total-amount");
-  newChildDiv[7].setAttribute("class", "remove-item-btn");
+  newChildDiv[ 0 ].setAttribute("class", "product-sl");
+  newChildDiv[ 1 ].setAttribute("class", "product-name");
+  newChildDiv[ 2 ].setAttribute("class", "regular-price");
+  newChildDiv[ 3 ].setAttribute("class", "discount");
+  newChildDiv[ 4 ].setAttribute("class", "present-price");
+  newChildDiv[ 5 ].setAttribute("class", "product-quantity");
+  newChildDiv[ 6 ].setAttribute("class", "total-amount");
+  newChildDiv[ 7 ].setAttribute("class", "remove-item-btn");
 
   let newChildPara = [];
 
   for (let i = 0; i < 7; i++) {
-    newChildPara[i] = document.createElement("p");
+    newChildPara[ i ] = document.createElement("p");
   }
 
   let removeBtn = document.createElement("button");
@@ -440,21 +440,21 @@ function createShoppingCartItem(
   let totalPrice = itemQuantity * presentPrice;
   totalPrice = totalPrice.toFixed(2);
 
-  newChildPara[1].innerHTML = itemName;
-  newChildPara[2].innerHTML = itemPrice + " RS";
-  newChildPara[3].innerHTML = itemDiscount + "%";
-  newChildPara[4].innerHTML = presentPrice + " RS";
-  newChildPara[5].innerHTML = itemQuantity + " Items";
-  newChildPara[6].innerHTML = totalPrice + " RS";
+  newChildPara[ 1 ].innerHTML = itemName;
+  newChildPara[ 2 ].innerHTML = itemPrice + " RS";
+  newChildPara[ 3 ].innerHTML = itemDiscount + "%";
+  newChildPara[ 4 ].innerHTML = presentPrice + " RS";
+  newChildPara[ 5 ].innerHTML = itemQuantity + " Items";
+  newChildPara[ 6 ].innerHTML = totalPrice + " RS";
 
   for (let i = 0; i < 7; i++) {
-    newChildDiv[i].appendChild(newChildPara[i]);
+    newChildDiv[ i ].appendChild(newChildPara[ i ]);
   }
 
-  newChildDiv[7].appendChild(removeBtn);
+  newChildDiv[ 7 ].appendChild(removeBtn);
 
   for (let i = 0; i < 8; i++) {
-    newParentDiv.appendChild(newChildDiv[i]);
+    newParentDiv.appendChild(newChildDiv[ i ]);
   }
 
   return newParentDiv;
@@ -466,19 +466,19 @@ function addItemsToShoppingCartArea(itemIndex, buyBtn, itemQuantity) {
   buyBtn.style.background = "crimson";
   buyBtn.innerHTML = "Added";
   let getQuantity = itemQuantity.value;
-  let getItemName = productName[itemIndex].textContent;
-  let getItemPrice = productPrice[itemIndex].textContent;
-  let getItemDiscount = productDiscount[itemIndex].textContent;
+  let getItemName = productName[ itemIndex ].textContent;
+  let getItemPrice = productPrice[ itemIndex ].textContent;
+  let getItemDiscount = productDiscount[ itemIndex ].textContent;
   let getPresentPrice = getItemPrice - (getItemDiscount / 100) * getItemPrice;
   getPresentPrice = getPresentPrice.toFixed(2);
-  shoppingCartItem[itemIndex] = createShoppingCartItem(
+  shoppingCartItem[ itemIndex ] = createShoppingCartItem(
     getItemName,
     getItemPrice,
     getItemDiscount,
     getPresentPrice,
     getQuantity
   );
-  shoppingDetailsContent.appendChild(shoppingCartItem[itemIndex]);
+  shoppingDetailsContent.appendChild(shoppingCartItem[ itemIndex ]);
   countTotalWeight += parseInt(getQuantity);
   countTotalAmount += getPresentPrice * parseInt(getQuantity);
 }
@@ -489,10 +489,10 @@ function removeItemsToShoppingCartArea(itemIndex, buyBtn, itemQuantity) {
   buyBtn.style.background = "#267247";
   buyBtn.innerHTML = "Add to Buy";
   let getQuantity = itemQuantity.value;
-  let getItemPrice = productPrice[itemIndex].textContent;
-  let getItemDiscount = productDiscount[itemIndex].textContent;
+  let getItemPrice = productPrice[ itemIndex ].textContent;
+  let getItemDiscount = productDiscount[ itemIndex ].textContent;
   let getPresentPrice = getItemPrice - (getItemDiscount / 100) * getItemPrice;
-  shoppingDetailsContent.removeChild(shoppingCartItem[itemIndex]);
+  shoppingDetailsContent.removeChild(shoppingCartItem[ itemIndex ]);
   countTotalWeight -= parseInt(getQuantity);
   countTotalAmount -= getPresentPrice * parseInt(getQuantity);
   itemQuantity.value = "";
@@ -516,16 +516,16 @@ function setProductSl() {
   let sl = 0;
   let shopItems = shoppingDetailsContent.children;
   for (let i = 0; i < shopItems.length; i++) {
-    shopItems[i].children[0].children[0].innerHTML = ++sl;
+    shopItems[ i ].children[ 0 ].children[ 0 ].innerHTML = ++sl;
   }
 }
 
 // Remove shop itmes index from array
 function removeShopItemsIndex(index) {
   for (let i = 0; i < storeShopItemsIndex.length; i++) {
-    if (storeShopItemsIndex[i] === index) {
+    if (storeShopItemsIndex[ i ] === index) {
       for (let j = i; j < storeShopItemsIndex.length; j++) {
-        storeShopItemsIndex[j] = storeShopItemsIndex[j + 1];
+        storeShopItemsIndex[ j ] = storeShopItemsIndex[ j + 1 ];
       }
     }
   }
@@ -535,10 +535,10 @@ function removeShopItemsIndex(index) {
 // Shopping items controll area
 function controllShoppingProductItems(itemIndex, addToBuyBtn) {
   let itemQuantity =
-    newCartContent[itemIndex].children[1].children[4].children[1];
+    newCartContent[ itemIndex ].children[ 1 ].children[ 4 ].children[ 1 ];
 
   if (
-    addedForBuy[itemIndex] === false &&
+    addedForBuy[ itemIndex ] === false &&
     itemQuantity.value !== "" &&
     itemQuantity.value > 0
   ) {
@@ -547,7 +547,7 @@ function controllShoppingProductItems(itemIndex, addToBuyBtn) {
     itemQuantity.setAttribute("disabled", "true");
     storeShopItemsIndex.push(itemIndex);
     setProductSl();
-    let shopItemRemoveBtn = shoppingCartItem[itemIndex].children[7].children[0];
+    let shopItemRemoveBtn = shoppingCartItem[ itemIndex ].children[ 7 ].children[ 0 ];
     shopItemRemoveBtn.addEventListener("click", function () {
       removeItemsToShoppingCartArea(itemIndex, addToBuyBtn, itemQuantity);
       displayBuyingDetailsFooter(countAddToBuyItem);
@@ -555,11 +555,11 @@ function controllShoppingProductItems(itemIndex, addToBuyBtn) {
       itemQuantity.removeAttribute("disabled");
       removeShopItemsIndex(itemIndex);
       setProductSl();
-      addedForBuy[itemIndex] = false;
+      addedForBuy[ itemIndex ] = false;
     });
-    addedForBuy[itemIndex] = true;
+    addedForBuy[ itemIndex ] = true;
   } else if (
-    addedForBuy[itemIndex] === true &&
+    addedForBuy[ itemIndex ] === true &&
     itemQuantity.value !== "" &&
     itemQuantity.value > 0
   ) {
@@ -569,7 +569,7 @@ function controllShoppingProductItems(itemIndex, addToBuyBtn) {
     itemQuantity.removeAttribute("disabled");
     removeShopItemsIndex(itemIndex);
     setProductSl();
-    addedForBuy[itemIndex] = false;
+    addedForBuy[ itemIndex ] = false;
   } else {
     if (itemQuantity.value === "") {
       alert("Please fill the quantity of your item");
@@ -582,16 +582,16 @@ function controllShoppingProductItems(itemIndex, addToBuyBtn) {
 // Controll product items and product cart area
 for (let i = 0; i < addToCartBtn.length; i++) {
   // actions while click 'Add to Cart' button
-  addToCartBtn[i].addEventListener("click", function () {
-    if (addedToCart[i] === false) {
+  addToCartBtn[ i ].addEventListener("click", function () {
+    if (addedToCart[ i ] === false) {
       addItemsToSelectedProducts(i);
-      if (newfavoriteItem[i] !== undefined) {
+      if (newfavoriteItem[ i ] !== undefined) {
         activeFavoriteItemAddToCartBtn(i);
       }
-      let removeCartContentBtn = newCartContent[i].children[1].children[8];
+      let removeCartContentBtn = newCartContent[ i ].children[ 1 ].children[ 8 ];
       removeCartContentBtn.onclick = () => {
         removeItemsToSelectedProducts(i);
-        if (newfavoriteItem[i] !== undefined) {
+        if (newfavoriteItem[ i ] !== undefined) {
           deactiveFavoriteItemAddToCartBtn(i);
         }
         --countSelectedItem;
@@ -599,15 +599,15 @@ for (let i = 0; i < addToCartBtn.length; i++) {
         cartIconProductCounter.innerHTML = countSelectedItem;
         displayBuyingHeader(countSelectedItem);
         displayCartCounter(countSelectedItem);
-        addedToCart[i] = false;
+        addedToCart[ i ] = false;
       };
       ++countSelectedItem;
       totalSelectedCounter.innerHTML = countSelectedItem;
       cartIconProductCounter.innerHTML = countSelectedItem;
-      addedToCart[i] = true;
+      addedToCart[ i ] = true;
     } else {
       removeItemsToSelectedProducts(i);
-      if (newfavoriteItem[i] !== undefined) {
+      if (newfavoriteItem[ i ] !== undefined) {
         deactiveFavoriteItemAddToCartBtn(i);
       }
       --countSelectedItem;
@@ -615,10 +615,10 @@ for (let i = 0; i < addToCartBtn.length; i++) {
       cartIconProductCounter.innerHTML = countSelectedItem;
       displayBuyingHeader(countSelectedItem);
       displayCartCounter(countSelectedItem);
-      addedToCart[i] = false;
+      addedToCart[ i ] = false;
     }
 
-    let addToBuyBtn = newCartContent[i].children[1].children[7];
+    let addToBuyBtn = newCartContent[ i ].children[ 1 ].children[ 7 ];
 
     addToBuyBtn.onclick = () => {
       controllShoppingProductItems(i, addToBuyBtn);
@@ -628,25 +628,25 @@ for (let i = 0; i < addToCartBtn.length; i++) {
   });
 
   // actions while click favorite icon
-  favoriteIcon[i].addEventListener("click", function () {
-    if (addedToFavorite[i] === false) {
+  favoriteIcon[ i ].addEventListener("click", function () {
+    if (addedToFavorite[ i ] === false) {
       addItemsToFavoriteProducts(i);
       totalFavoriteCounter.innerHTML = ++countFavoriteItem;
-      addedToFavorite[i] = true;
+      addedToFavorite[ i ] = true;
     } else {
       removeItemsToFavoriteProducts(i);
       totalFavoriteCounter.innerHTML = --countFavoriteItem;
-      addedToFavorite[i] = false;
+      addedToFavorite[ i ] = false;
     }
 
-    let favoriteContent = newfavoriteItem[i].children[1].children[0];
+    let favoriteContent = newfavoriteItem[ i ].children[ 1 ].children[ 0 ];
 
     favoriteContent.addEventListener("click", function () {
       activeConfirmationBox("Remove item from wishlist?");
       removeConfirmBtn.onclick = () => {
         removeItemsToFavoriteProducts(i);
         totalFavoriteCounter.innerHTML = --countFavoriteItem;
-        addedToFavorite[i] = false;
+        addedToFavorite[ i ] = false;
         removeConfirmationBox();
       };
 
@@ -657,14 +657,14 @@ for (let i = 0; i < addToCartBtn.length; i++) {
 
     // Select 'Add to Cart' button of favorite item
     let favoriteItemAddToCartBtn =
-      newfavoriteItem[i].children[2].children[2].children[0];
+      newfavoriteItem[ i ].children[ 2 ].children[ 2 ].children[ 0 ];
 
     // actions while click 'Add to Cart' button of favorite item
     favoriteItemAddToCartBtn.addEventListener("click", function () {
-      if (newfavoriteItem[i] !== undefined && addedToCart[i] === false) {
+      if (newfavoriteItem[ i ] !== undefined && addedToCart[ i ] === false) {
         addItemsToSelectedProducts(i);
         activeFavoriteItemAddToCartBtn(i);
-        let removeCartContentBtn = newCartContent[i].children[1].children[8];
+        let removeCartContentBtn = newCartContent[ i ].children[ 1 ].children[ 8 ];
         removeCartContentBtn.onclick = () => {
           removeItemsToSelectedProducts(i);
           deactiveFavoriteItemAddToCartBtn(i);
@@ -673,12 +673,12 @@ for (let i = 0; i < addToCartBtn.length; i++) {
           cartIconProductCounter.innerHTML = countSelectedItem;
           displayBuyingHeader(countSelectedItem);
           displayCartCounter(countSelectedItem);
-          addedToCart[i] = false;
+          addedToCart[ i ] = false;
         };
         ++countSelectedItem;
         totalSelectedCounter.innerHTML = countSelectedItem;
         cartIconProductCounter.innerHTML = countSelectedItem;
-        addedToCart[i] = true;
+        addedToCart[ i ] = true;
       } else {
         removeItemsToSelectedProducts(i);
         deactiveFavoriteItemAddToCartBtn(i);
@@ -687,10 +687,10 @@ for (let i = 0; i < addToCartBtn.length; i++) {
         cartIconProductCounter.innerHTML = countSelectedItem;
         displayBuyingHeader(countSelectedItem);
         displayCartCounter(countSelectedItem);
-        addedToCart[i] = false;
+        addedToCart[ i ] = false;
       }
 
-      let addToBuyBtn = newCartContent[i].children[1].children[7];
+      let addToBuyBtn = newCartContent[ i ].children[ 1 ].children[ 7 ];
 
       addToBuyBtn.onclick = () => {
         controllShoppingProductItems(i, addToBuyBtn);
@@ -725,13 +725,13 @@ removeAllShopItems.onclick = () => {
     activeConfirmationBox("Remove all items from cart?");
     removeConfirmBtn.onclick = () => {
       for (let i = 0; i < storeShopItemsIndex.length; i++) {
-        let itemIndex = storeShopItemsIndex[i];
-        let buyBtn = newCartContent[itemIndex].children[1].children[7];
+        let itemIndex = storeShopItemsIndex[ i ];
+        let buyBtn = newCartContent[ itemIndex ].children[ 1 ].children[ 7 ];
         let itemQuantity =
-          newCartContent[itemIndex].children[1].children[4].children[1];
+          newCartContent[ itemIndex ].children[ 1 ].children[ 4 ].children[ 1 ];
         removeItemsToShoppingCartArea(itemIndex, buyBtn, itemQuantity);
         itemQuantity.removeAttribute("disabled");
-        addedForBuy[itemIndex] = false;
+        addedForBuy[ itemIndex ] = false;
       }
       storeShopItemsIndex = [];
       displayBuyingDetailsFooter(countAddToBuyItem);
@@ -745,11 +745,9 @@ removeAllShopItems.onclick = () => {
     alert("No items found in shopping cart");
   }
 };
-heart.onclick() = () => {
-  function() {
-    $(this).toggleClass("is-active");
-  }
-};
+// heart.onclick() = () => {
+//     $(this).toggleClass("is-active");
+// };
 
 
 // =====================================

@@ -1,6 +1,7 @@
 import { Helmet } from "react-helmet";
 import "./lp";
 import "./lp.css";
+import Logo from "../../assets/logo-removebg-preview.png";
 
 const Landing = () => {
     return (
@@ -28,15 +29,11 @@ const Landing = () => {
                     href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css"
                 />
             </Helmet>{" "}
-            <img
-                src="logo-removebg-preview.png"
-                id="header-img"
-                alt="Soygo Logo"
-            />
-            <form action="../signup/index.html">
-                <button class="btn" type="submit">
+            <img src={Logo} id="header-img" alt="Soygo Logo" />
+            <form action="#">
+                <a class="btn" type="submit" href="/auth">
                     Sign Up
-                </button>
+                </a>
             </form>
             <main>
                 <section id="home">
@@ -52,7 +49,7 @@ const Landing = () => {
                             spread love in this world.
                         </p>
                         <div>
-                            <a href="../explore/explore.html">Explore</a>
+                            <a href="/explore">Explore</a>
                         </div>
                     </div>
                 </section>
