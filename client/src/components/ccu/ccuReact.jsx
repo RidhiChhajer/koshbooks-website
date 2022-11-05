@@ -1,26 +1,24 @@
 import React from "react";
 import { Helmet } from "react-helmet";
 import "./ccu.css";
+import { useHistory } from "react-router-dom";
 
-const ccuReact = () => {
+const CcuReact = () => {
+    const history = useHistory();
     return (
         <>
             <Helmet>
                 <title>Feedback</title>
-                <link
-                    href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800&display=swap"
-                    rel="stylesheet"
-                ></link>
             </Helmet>
-            <div class="content">
-                <div class="wrapper-1">
-                    <div class="wrapper-2">
-                        <h1>Thank you !</h1>
-                        <p>Thanks for your feedback.</p>
-                        <p>We will get back to you shortly.</p>
-                        <form action="../landingPage/lp.html">
-                            <button class="go-home">Go Home</button>
-                        </form>
+            <div class="content_ccu">
+                <div class="wrapper-1_ccu">
+                    <div class="wrapper-2_ccu">
+                        <h1 class="h1_ccu">Thank you !</h1>
+                        <p class="h2_ccu">Enjoy Reading !!</p>
+                        <p class="p_ccu">Get back to us for more books.</p>
+                        <div onClick={() => history.push("/")}>
+                            <button class="go-home_ccu">Go Home</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -28,4 +26,4 @@ const ccuReact = () => {
     );
 };
 
-export default ccuReact;
+export default CcuReact;

@@ -1,283 +1,210 @@
-import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import "./cart_react.css";
 import { Helmet } from "react-helmet";
-import "./cart.css";
+import {
+    PayPalScriptProvider,
+    PayPalButtons,
+    usePayPalScriptReducer,
+} from "@paypal/react-paypal-js";
+import axios from "axios";
+import Navbar from "../Navbar";
+import { reset } from "../../redux/cartSlice";
+import { useHistory } from "react-router-dom";
 
-const cartReact = () => {
+const Cart = () => {
+    const cart = useSelector((state) => state.cart);
+    const [open, setOpen] = useState(false);
+    const [cash, setCash] = useState(false);
+    const amount = cart.total;
+    const currency = "USD";
+    const style = { layout: "vertical" };
+    const history = useHistory();
+    const dispatch = useDispatch();
+
+    const createOrder = async (data) => {
+        try {
+            console.log("data-->", data);
+            // const res = await axios.post(
+            //     "http://localhost:3000/api/orders",
+            //     data
+            // );
+            console.log("Connected");
+            // res.status === 201 && history.push("/orders/" + res.data._id);
+            // dispatch(reset());
+            history.push("/ccu");
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    const ButtonWrapper = ({ currency, showSpinner }) => {
+        // usePayPalScriptReducer can be use only inside children of PayPalScriptProviders
+        // This is the main reason to wrap the PayPalButtons in a new component
+        const [{ options, isPending }, dispatch] = usePayPalScriptReducer();
+
+        useEffect(() => {
+            dispatch({
+                type: "resetOptions",
+                value: {
+                    ...options,
+                    currency: currency,
+                },
+            });
+        }, [currency, showSpinner]);
+
+        return (
+            <>
+                {showSpinner && isPending && <div className="spinner" />}
+                <PayPalButtons
+                    style={style}
+                    disabled={false}
+                    forceReRender={[1, currency, style]}
+                    fundingSource={undefined}
+                    createOrder={(data, actions) => {
+                        return actions.order
+                            .create({
+                                purchase_units: [
+                                    {
+                                        amount: {
+                                            currency_code: currency,
+                                            value: 1,
+                                        },
+                                    },
+                                ],
+                            })
+                            .then((orderId) => {
+                                // Your code here after create the order
+                                return orderId;
+                            });
+                    }}
+                    onApprove={function (data, actions) {
+                        return actions.order.capture().then(function (details) {
+                            // Your code here after capture the order
+                            const shipping = details.purchase_units[0].shipping;
+                            createOrder({
+                                customer: shipping.name.full_name,
+                                address: shipping.address.address_line_1,
+                                total: cart.total,
+                                method: 1,
+                            });
+                        });
+                    }}
+                />
+            </>
+        );
+    };
+
     return (
         <>
             <Helmet>
-                <title>Cart</title>
-                <link
-                    href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css"
-                    rel="stylesheet"
-                    integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT"
-                    crossorigin="anonymous"
-                />
                 <link
                     rel="stylesheet"
                     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
                 />
-                <link rel="stylesheet" href="../explore/explore.css" />
                 <script
                     src="https://kit.fontawesome.com/de33fbad5c.js"
                     crossorigin="anonymous"
                 ></script>
             </Helmet>
-            <body>
-                <header id="header">
-                    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                        <div class="logo">
-                            <a href="http://localhost:5000/">
-                                <img
-                                    src="https://raw.githubusercontent.com/RidhiChhajer/koshbooks-website/main/koshbooks-website/assets/logo-removebg-preview.png"
-                                    id="header-img"
-                                    alt="KoshBooks Logo"
-                                    width="80"
-                                    height="60"
-                                />
-                            </a>
+            <Navbar />
+            <div className="container_c">
+                <div className="left_c">
+                    <table className="table_c">
+                        <tbody>
+                            <tr className="tr_title">
+                                <th>Product</th>
+                                <th>Name</th>
+                                <th>Price</th>
+                                <th>Quantity</th>
+                                <th>Total</th>
+                            </tr>
+                        </tbody>
+                        {cart.products.map((product) => (
+                            <tbody key={product._id}>
+                                <tr className="tr_c">
+                                    <td>
+                                        <div className="imgContainer_c">
+                                            <img src={product.image} alt="" />
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <span className="name_c">
+                                            {product.name}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <span className="price_c">
+                                            ${product.price}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <span className="quantity_c">
+                                            {product.quantity}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <span className="total_c">
+                                            ${product.price * product.quantity}
+                                        </span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        ))}
+                    </table>
+                </div>
+                <div className="right_c">
+                    <div className="wrapper_c">
+                        <h2 className="title_c">CART TOTAL</h2>
+                        <div className="total_text_c">
+                            <b className="totalTextTitle_c">Quantity:</b>2
                         </div>
-
-                        <div
-                            class="section-title collapse navbar-collapse"
-                            id="navbarSupportedContent"
-                        >
-                            <form action="cart">
-                                <button class="btn" type="submit">
-                                    <i class="shopping-cart fa-solid fa-cart-shopping"></i>{" "}
-                                    cart
-                                </button>
-                            </form>
-
-                            <form action="wishlist">
-                                <button class="btn" type="submit">
-                                    <i class="fa-solid fa-heart"></i> wishlist
-                                </button>
-                            </form>
-
-                            <form action="profile">
-                                <button class="btn" type="submit">
-                                    <i class="fa-solid fa-user"></i> profile
-                                </button>
-                            </form>
-
-                            <form action="landingPage">
-                                <button class="btn" type="submit">
-                                    <i class="fa-solid fa-house"></i> home
-                                </button>
-                            </form>
+                        <div className="total_text_c">
+                            <b className="totalTextTitle_c">Total:</b>$ 500
                         </div>
-                    </nav>
-                </header>
-                <div class="wrap cf">
-                    <h1 class="projTitle">My Shopping Cart</h1>
-                    <div class="heading cf">
-                        <h1>My Cart</h1>
-                        <a href="/explore" class="continue">
-                            Continue Shopping
-                        </a>
-                    </div>
-                    <div class="cart">
-                        <ul class="cartWrap">
-                            <li class="items odd">
-                                <div class="infoWrap">
-                                    <div class="cartSection">
-                                        <img
-                                            src="http://lorempixel.com/output/technics-q-c-300-300-4.jpg"
-                                            alt=""
-                                            class="itemImg"
-                                        />
-                                        <p class="itemNumber">
-                                            #QUE-007544-002
-                                        </p>
-                                        <h3>Item Name 1</h3>
-
-                                        <p>
-                                            {" "}
-                                            <input
-                                                type="text"
-                                                class="qty"
-                                                placeholder="3"
-                                            />{" "}
-                                            x $5.00
-                                        </p>
-
-                                        <p class="stockStatus"> In Stock</p>
-                                    </div>
-
-                                    <div class="prodTotal cartSection">
-                                        <p>$15.00</p>
-                                    </div>
-                                    <div class="cartSection removeWrap">
-                                        <a href="#" class="remove">
-                                            x
-                                        </a>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="items even">
-                                <div class="infoWrap">
-                                    <div class="cartSection">
-                                        <img
-                                            src="http://lorempixel.com/output/technics-q-c-300-300-4.jpg"
-                                            alt=""
-                                            class="itemImg"
-                                        />
-                                        <p class="itemNumber">
-                                            #QUE-007544-002
-                                        </p>
-                                        <h3>Item Name 1</h3>
-
-                                        <p>
-                                            {" "}
-                                            <input
-                                                type="text"
-                                                class="qty"
-                                                placeholder="3"
-                                            />{" "}
-                                            x $5.00
-                                        </p>
-
-                                        <p class="stockStatus"> In Stock</p>
-                                    </div>
-
-                                    <div class="prodTotal cartSection">
-                                        <p>$15.00</p>
-                                    </div>
-                                    <div class="cartSection removeWrap">
-                                        <a href="#" class="remove">
-                                            x
-                                        </a>
-                                    </div>
-                                </div>
-                            </li>
-
-                            <li class="items odd">
-                                <div class="infoWrap">
-                                    <div class="cartSection">
-                                        <img
-                                            src="http://lorempixel.com/output/technics-q-c-300-300-4.jpg"
-                                            alt=""
-                                            class="itemImg"
-                                        />
-                                        <p class="itemNumber">
-                                            #QUE-007544-002
-                                        </p>
-                                        <h3>Item Name 1</h3>
-
-                                        <p>
-                                            {" "}
-                                            <input
-                                                type="text"
-                                                class="qty"
-                                                placeholder="3"
-                                            />{" "}
-                                            x $5.00
-                                        </p>
-
-                                        <p class="stockStatus out">
-                                            {" "}
-                                            Out of Stock
-                                        </p>
-                                    </div>
-
-                                    <div class="prodTotal cartSection">
-                                        <p>$15.00</p>
-                                    </div>
-                                    <div class="cartSection removeWrap">
-                                        <a href="#" class="remove">
-                                            x
-                                        </a>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="items even">
-                                <div class="infoWrap">
-                                    <div class="cartSection info">
-                                        <img
-                                            src="http://lorempixel.com/output/technics-q-c-300-300-4.jpg"
-                                            alt=""
-                                            class="itemImg"
-                                        />
-                                        <p class="itemNumber">
-                                            #QUE-007544-002
-                                        </p>
-                                        <h3>Item Name 1</h3>
-
-                                        <p>
-                                            {" "}
-                                            <input
-                                                type="text"
-                                                class="qty"
-                                                placeholder="3"
-                                            />{" "}
-                                            x $5.00
-                                        </p>
-
-                                        <p class="stockStatus"> In Stock</p>
-                                    </div>
-
-                                    <div class="prodTotal cartSection">
-                                        <p>$15.00</p>
-                                    </div>
-
-                                    <div class="cartSection removeWrap">
-                                        <a href="#" class="remove">
-                                            x
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="special">
-                                    <div class="specialContent">
-                                        Free gift with purchase!, gift wrap,
-                                        etc!!
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-
-                    <div class="promoCode">
-                        <label for="promo">Have A Promo Code?</label>
-                        <input
-                            type="text"
-                            name="promo"
-                            placholder="Enter Code"
-                        />
-                        <a href="#" class="btn"></a>
-                    </div>
-
-                    <div class="subtotal cf">
-                        <ul>
-                            <li class="totalRow">
-                                <span class="label">Subtotal</span>
-                                <span class="value">$35.00</span>
-                            </li>
-
-                            <li class="totalRow">
-                                <span class="label">Shipping</span>
-                                <span class="value">$5.00</span>
-                            </li>
-
-                            <li class="totalRow">
-                                <span class="label">Tax</span>
-                                <span class="value">$4.00</span>
-                            </li>
-                            <li class="totalRow final">
-                                <span class="label">Total</span>
-                                <span class="value">$44.00</span>
-                            </li>
-                            <li class="totalRow">
-                                <a href="#" class="btn continue">
-                                    Checkout
-                                </a>
-                            </li>
-                        </ul>
+                        {open ? (
+                            <div className="payment_methods">
+                                <button
+                                    className="paybutton"
+                                    onClick={() => setCash(true)}
+                                >
+                                    CASH ON DELIVERY
+                                </button>
+                                <PayPalScriptProvider
+                                    options={{
+                                        "client-id":
+                                            "ASnPxSusZ32j7LyBrGmLMg5MCJe3XmX9Ls18BsfN06oIlom_ZdzhFEeFAJ_tslyVVBt6dc3cf8nOmqJn",
+                                        components: "buttons",
+                                        currency: "USD",
+                                        "disable-funding": "credit,card,p24",
+                                    }}
+                                >
+                                    <ButtonWrapper
+                                        currency={currency}
+                                        showSpinner={false}
+                                    />
+                                </PayPalScriptProvider>
+                            </div>
+                        ) : (
+                            <button
+                                onClick={() => setOpen(true)}
+                                className="button_c"
+                            >
+                                CHECKOUT NOW!
+                            </button>
+                        )}
                     </div>
                 </div>
-            </body>
+                {cash &&
+                    createOrder({
+                        customer: "Willam Jones",
+                        address: "33 Cali, HK - 64",
+                        total: 500,
+                        method: 2,
+                    })}
+            </div>
         </>
     );
 };
 
-export default cartReact;
+export default Cart;

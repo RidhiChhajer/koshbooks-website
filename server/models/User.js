@@ -15,12 +15,22 @@ const userSchema = mongoose.Schema({
         type: String,
         required: true,
         unique: true,
+        default: 'Not specified'
+    },
+    birthdate: {
+        type: String,
+        required: true,
+        default: 'Not specified'
+    },
+    mail: {
+        type: String,
+        required: true,
     },
     role: {
         type: String,
         default: 'USER',
         enum: [ 'USER', 'ADMIN' ],
-    }
+    },
 }, {
     timestamps: true,
 });

@@ -1,17 +1,49 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./bd.css";
 import { Helmet } from "react-helmet";
+import Navbar from "../Navbar";
+import { useParams, useHistory } from "react-router-dom";
+import API from "../../api/api";
+import axios from "axios";
+import Cookies from "js-cookie";
+import { useDispatch } from "react-redux";
+import { addProduct } from "../../redux/cartSlice";
 
-const bookDetails = () => {
+const BookDetails = () => {
+    const dispatch = useDispatch();
+    const { id } = useParams();
+    const [book, setBook] = useState();
+    const [quantity, setQuantity] = useState(1);
+    const [price, setPrice] = useState(0);
+    const history = useHistory();
+
+    const addQuantity = () => {
+        if (quantity < 10) setQuantity(quantity + 1);
+    };
+
+    const subQuantity = () => {
+        if (quantity > 1) setQuantity(quantity - 1);
+    };
+
+    const fetchBook = async () => {
+        const { data } = await axios.get(API + `book/${id}`, {
+            withCredentials: true,
+        });
+        setBook(data);
+        setPrice(data.price);
+    };
+
+    useEffect(() => {
+        fetchBook();
+    }, []);
+
+    const handleClick = () => {
+        dispatch(addProduct({ ...book, price, quantity }));
+    };
+
     return (
         <>
-            {/* <Helmet>
-                <link
-                    href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css"
-                    rel="stylesheet"
-                    integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT"
-                    crossorigin="anonymous"
-                />
+            <Helmet>
                 <link
                     rel="stylesheet"
                     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
@@ -21,113 +53,198 @@ const bookDetails = () => {
                     crossorigin="anonymous"
                 ></script>
                 <link
-                    href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
-                    rel="stylesheet"
-                    id="bootstrap-css"
-                />
-                <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-                <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-                <link
                     href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800&display=swap"
                     rel="stylesheet"
                 />
-                <link
-                    rel="stylesheet"
-                    type="text/css"
-                    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css"
-                />
-                <link
-                    rel="stylesheet"
-                    type="text/css"
-                    href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css"
-                />
-                <link
-                    rel="stylesheet"
-                    type="text/css"
-                    href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css"
-                />
-            </Helmet> */}
-            <body>
-                <header id="header">
-                    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                        <div class="logo">
-                            <img
-                                class="logo-img"
-                                src="/assets/logo-removebg-preview.png"
-                                alt="logo"
-                            />
-                        </div>
-
-                        <div class="search-box">
-                            <div class="search-icon">
-                                <i class="fa-solid fa-magnifying-glass"></i>
-                            </div>
-                            <input type="text" placeholder="Search..." />
-                        </div>
-
-                        <button
-                            class="navbar-toggler"
-                            type="button"
-                            data-toggle="collapse"
-                            data-bs-target="#navbarSupportedContent"
-                            aria-controls="navbarSupportedContent"
-                            aria-expanded="false"
-                            aria-label="Toggle navigation"
-                        >
-                            <span class="navbar-toggler-icon"></span>
-                        </button>
-
-                        <div
-                            class="section-title collapse navbar-collapse"
-                            id="navbarSupportedContent"
-                        >
-                            <form action="../cart/cart.html">
-                                <button class="btn" type="submit">
-                                    <i class="shopping-cart fa-solid fa-cart-shopping"></i>{" "}
-                                    cart
-                                </button>
-                            </form>
-
-                            <form action="../wishlist/wishlist.html">
-                                <button class="btn" type="submit">
-                                    <i class="fa-solid fa-heart"></i> wishlist
-                                </button>
-                            </form>
-
-                            <form action="../profile/profile.html">
-                                <button class="btn" type="submit">
-                                    <i class="fa-solid fa-user"></i> profile
-                                </button>
-                            </form>
-
-                            <form action="../landingPage/lp.html">
-                                <button class="btn" type="submit">
-                                    <i class="fa-solid fa-house"></i> home
-                                </button>
-                            </form>
-                        </div>
-                    </nav>
-                </header>
-                <div class="container">
+            </Helmet>
+            <div className="background_back">
+                <Navbar />
+                <div class="prod_details">
                     <div class="heading-section">
                         <h2>Product Details</h2>
                     </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div
-                                id="slider"
-                                class="owl-carousel product-slider"
-                            >
-                                <div class="item">
-                                    <img src="https://www.hollywoodreporter.com/wp-content/uploads/2021/07/book-The-Alchemist-book.jpg" />
+                    {book != null ? (
+                        <>
+                            <div class="row">
+                                <div class="content_bd">
+                                    <div class="item1_bd">
+                                        <img src={book.image} alt={book.name} />
+                                    </div>
+                                    <div class="item2_bd">
+                                        <div class="product-dtl">
+                                            <div class="product-info">
+                                                <div class="product-name">
+                                                    {book.name}
+                                                </div>
+                                                <div class="reviews-counter">
+                                                    <div class="rate">
+                                                        <input
+                                                            type="radio"
+                                                            id="star5"
+                                                            name="rate"
+                                                            value="5"
+                                                            checked
+                                                        />
+                                                        <label
+                                                            for="star5"
+                                                            title="text"
+                                                        >
+                                                            5 stars
+                                                        </label>
+                                                        <input
+                                                            type="radio"
+                                                            id="star4"
+                                                            name="rate"
+                                                            value="4"
+                                                            checked
+                                                        />
+                                                        <label
+                                                            for="star4"
+                                                            title="text"
+                                                        >
+                                                            4 stars
+                                                        </label>
+                                                        <input
+                                                            type="radio"
+                                                            id="star3"
+                                                            name="rate"
+                                                            value="3"
+                                                            checked
+                                                        />
+                                                        <label
+                                                            for="star3"
+                                                            title="text"
+                                                        >
+                                                            3 stars
+                                                        </label>
+                                                        <input
+                                                            type="radio"
+                                                            id="star2"
+                                                            name="rate"
+                                                            value="2"
+                                                        />
+                                                        <label
+                                                            for="star2"
+                                                            title="text"
+                                                        >
+                                                            2 stars
+                                                        </label>
+                                                        <input
+                                                            type="radio"
+                                                            id="star1"
+                                                            name="rate"
+                                                            value="1"
+                                                        />
+                                                        <label
+                                                            for="star1"
+                                                            title="text"
+                                                        >
+                                                            1 star
+                                                        </label>
+                                                    </div>
+                                                    <span>3 Reviews</span>
+                                                </div>
+                                                <div class="product-price-discount">
+                                                    <span>
+                                                        Rs {book.f_price}.00
+                                                    </span>
+                                                    <span class="line-through">
+                                                        Rs {book.price}.00
+                                                    </span>
+                                                </div>
+                                                <p>
+                                                    Combining magic, mysticism,
+                                                    wisdom and wonder into an
+                                                    inspiring tale of
+                                                    self-discovery, The
+                                                    Alchemist has become a
+                                                    modern classic, selling
+                                                    millions of copies around
+                                                    the world and transforming
+                                                    the lives of countless
+                                                    readers across generations.
+                                                </p>
+                                            </div>
+                                            <div class="product-count">
+                                                <label for="size">
+                                                    Quantity
+                                                </label>
+                                                <div
+                                                    action="#"
+                                                    class="display-flex"
+                                                >
+                                                    <div
+                                                        class="qtyminus"
+                                                        onClick={() =>
+                                                            subQuantity()
+                                                        }
+                                                    >
+                                                        -
+                                                    </div>
+                                                    <input
+                                                        type="text"
+                                                        name="quantity"
+                                                        value={quantity}
+                                                        class="qty"
+                                                    />
+                                                    <div
+                                                        class="qtyplus"
+                                                        onClick={() =>
+                                                            addQuantity()
+                                                        }
+                                                    >
+                                                        +
+                                                    </div>
+                                                </div>
+                                                <div
+                                                    class="round-black-btn pointer"
+                                                    onClick={() => {
+                                                        if (
+                                                            Cookies.get(
+                                                                "user_sid"
+                                                            ) !== undefined
+                                                        ) {
+                                                            handleClick();
+                                                        } else {
+                                                            history.push(
+                                                                "/auth"
+                                                            );
+                                                        }
+                                                    }}
+                                                >
+                                                    Add to Cart
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-md-6">
-                                <div class="product-dtl">
-                                    <div class="product-info">
-                                        <div class="product-name">
-                                            The Alchemist
-                                        </div>
+                            <div class="descrip">
+                                <div className="descrip_head">Description</div>
+                                <div class="descrip_content">
+                                    Paulo Coelho's masterpiece tells the
+                                    mystical story of Santiago, an Andalusian
+                                    shepherd boy who yearns to travel in search
+                                    of a worldly treasure. His quest will lead
+                                    him to riches far different—and far more
+                                    satisfying—than he ever imagined. Santiago's
+                                    journey teaches us about the essential
+                                    wisdom of listening to our hearts, of
+                                    recognizing opportunity and learning to read
+                                    the omens strewn along life's path, and,
+                                    most importantly, to follow our dreams.
+                                </div>
+                            </div>
+                            <div className="review_bdd">
+                                <div className="review_bd">
+                                    <div class="review-heading">REVIEWS</div>
+                                    <p class="review_bd_content">
+                                        There are no reviews yet.
+                                    </p>
+                                </div>
+                                <form class="review-form">
+                                    <div class="form-group">
+                                        <label>Your rating</label>
                                         <div class="reviews-counter">
                                             <div class="rate">
                                                 <input
@@ -135,7 +252,6 @@ const bookDetails = () => {
                                                     id="star5"
                                                     name="rate"
                                                     value="5"
-                                                    checked
                                                 />
                                                 <label for="star5" title="text">
                                                     5 stars
@@ -145,7 +261,6 @@ const bookDetails = () => {
                                                     id="star4"
                                                     name="rate"
                                                     value="4"
-                                                    checked
                                                 />
                                                 <label for="star4" title="text">
                                                     4 stars
@@ -155,7 +270,6 @@ const bookDetails = () => {
                                                     id="star3"
                                                     name="rate"
                                                     value="3"
-                                                    checked
                                                 />
                                                 <label for="star3" title="text">
                                                     3 stars
@@ -179,213 +293,52 @@ const bookDetails = () => {
                                                     1 star
                                                 </label>
                                             </div>
-                                            <span>3 Reviews</span>
-                                        </div>
-                                        <div class="product-price-discount">
-                                            <span>Rs199.00</span>
-                                            <span class="line-through">
-                                                Rs399.00
-                                            </span>
                                         </div>
                                     </div>
-                                    <p>
-                                        Combining magic, mysticism, wisdom and
-                                        wonder into an inspiring tale of
-                                        self-discovery, The Alchemist has become
-                                        a modern classic, selling millions of
-                                        copies around the world and transforming
-                                        the lives of countless readers across
-                                        generations.
-                                    </p>
-                                    <div class="product-count">
-                                        <label for="size">Quantity</label>
-                                        <form action="#" class="display-flex">
-                                            <div class="qtyminus">-</div>
-                                            <input
-                                                type="text"
-                                                name="quantity"
-                                                value="1"
-                                                class="qty"
-                                            />
-                                            <div class="qtyplus">+</div>
-                                        </form>
-                                        <a
-                                            href="../cart/cart.html"
-                                            class="round-black-btn"
-                                        >
-                                            Add to Cart
-                                        </a>
+                                    <div class="form-group">
+                                        <label>Your message</label>
+                                        <textarea
+                                            class="form-control"
+                                            rows="10"
+                                        ></textarea>
                                     </div>
-                                </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <input
+                                                    type="text"
+                                                    name=""
+                                                    class="form-control"
+                                                    placeholder="Name*"
+                                                />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <input
+                                                    type="text"
+                                                    name=""
+                                                    class="form-control"
+                                                    placeholder="Email Id*"
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button class="round-black-btn">
+                                        Submit Review
+                                    </button>
+                                </form>
                             </div>
-                        </div>
-                        <div class="product-info-tabs">
-                            <ul class="nav nav-tabs" id="myTab" role="tablist">
-                                <li class="nav-item">
-                                    <a
-                                        class="nav-link active"
-                                        id="description-tab"
-                                        data-toggle="tab"
-                                        href="#description"
-                                        role="tab"
-                                        aria-controls="description"
-                                        aria-selected="true"
-                                    >
-                                        Description
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a
-                                        class="nav-link"
-                                        id="review-tab"
-                                        data-toggle="tab"
-                                        href="#review"
-                                        role="tab"
-                                        aria-controls="review"
-                                        aria-selected="false"
-                                    >
-                                        Reviews (0)
-                                    </a>
-                                </li>
-                            </ul>
-                            <div class="tab-content" id="myTabContent">
-                                <div
-                                    class="tab-pane fade show active"
-                                    id="description"
-                                    role="tabpanel"
-                                    aria-labelledby="description-tab"
-                                >
-                                    Paulo Coelho's masterpiece tells the
-                                    mystical story of Santiago, an Andalusian
-                                    shepherd boy who yearns to travel in search
-                                    of a worldly treasure. His quest will lead
-                                    him to riches far different—and far more
-                                    satisfying—than he ever imagined. Santiago's
-                                    journey teaches us about the essential
-                                    wisdom of listening to our hearts, of
-                                    recognizing opportunity and learning to read
-                                    the omens strewn along life's path, and,
-                                    most importantly, to follow our dreams.
-                                </div>
-                                <div
-                                    class="tab-pane fade"
-                                    id="review"
-                                    role="tabpanel"
-                                    aria-labelledby="review-tab"
-                                >
-                                    <div class="review-heading">REVIEWS</div>
-                                    <p class="mb-20">
-                                        There are no reviews yet.
-                                    </p>
-                                    <form class="review-form">
-                                        <div class="form-group">
-                                            <label>Your rating</label>
-                                            <div class="reviews-counter">
-                                                <div class="rate">
-                                                    <input
-                                                        type="radio"
-                                                        id="star5"
-                                                        name="rate"
-                                                        value="5"
-                                                    />
-                                                    <label
-                                                        for="star5"
-                                                        title="text"
-                                                    >
-                                                        5 stars
-                                                    </label>
-                                                    <input
-                                                        type="radio"
-                                                        id="star4"
-                                                        name="rate"
-                                                        value="4"
-                                                    />
-                                                    <label
-                                                        for="star4"
-                                                        title="text"
-                                                    >
-                                                        4 stars
-                                                    </label>
-                                                    <input
-                                                        type="radio"
-                                                        id="star3"
-                                                        name="rate"
-                                                        value="3"
-                                                    />
-                                                    <label
-                                                        for="star3"
-                                                        title="text"
-                                                    >
-                                                        3 stars
-                                                    </label>
-                                                    <input
-                                                        type="radio"
-                                                        id="star2"
-                                                        name="rate"
-                                                        value="2"
-                                                    />
-                                                    <label
-                                                        for="star2"
-                                                        title="text"
-                                                    >
-                                                        2 stars
-                                                    </label>
-                                                    <input
-                                                        type="radio"
-                                                        id="star1"
-                                                        name="rate"
-                                                        value="1"
-                                                    />
-                                                    <label
-                                                        for="star1"
-                                                        title="text"
-                                                    >
-                                                        1 star
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Your message</label>
-                                            <textarea
-                                                class="form-control"
-                                                rows="10"
-                                            ></textarea>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <input
-                                                        type="text"
-                                                        name=""
-                                                        class="form-control"
-                                                        placeholder="Name*"
-                                                    />
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <input
-                                                        type="text"
-                                                        name=""
-                                                        class="form-control"
-                                                        placeholder="Email Id*"
-                                                    />
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <button class="round-black-btn">
-                                            Submit Review
-                                        </button>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                        </>
+                    ) : (
+                        <>
+                            <h1 class="no_record">Book not found</h1>
+                        </>
+                    )}
                 </div>
-            </body>
+            </div>
         </>
     );
 };
 
-export default bookDetails;
+export default BookDetails;

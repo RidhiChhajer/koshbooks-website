@@ -1,5 +1,4 @@
 import { Helmet } from "react-helmet";
-import "./lp";
 import "./lp.css";
 import Logo from "../../assets/logo-removebg-preview.png";
 
@@ -30,23 +29,20 @@ const Landing = () => {
                 />
             </Helmet>{" "}
             <img src={Logo} id="header-img" alt="Soygo Logo" />
-            <form action="#">
-                <a class="btn" type="submit" href="/auth">
-                    Sign Up
-                </a>
-            </form>
+            <a class="btn" type="submit" href="/auth">
+                Sign Up
+            </a>
             <main>
                 <section id="home">
-                    <div class="overlay"></div>
+                    <div class="overlayy"></div>
                     <div class="header-message">
                         <h2>
-                            Drink Wild. <br />
-                            Hangout With Friends. <br />
-                            Establish Deep Connection.
+                            Let's Read and Escape Together. <br /> Connect by
+                            Disconnecting
                         </h2>
                         <p>
-                            Start your day with us, grab one cup and help us to
-                            spread love in this world.
+                            Start your day with a book, grab a cup and
+                            experience the changing world around you.
                         </p>
                         <div>
                             <a href="/explore">Explore</a>
@@ -61,34 +57,33 @@ const Landing = () => {
                     <div class="services">
                         <div class="service">
                             <img
-                                class="services-images service-icon"
-                                src="https://media.istockphoto.com/photos/knowledge-sharing-between-people-picture-id1153885263?k=20&m=1153885263&s=612x612&w=0&h=TYxLn0zwCILB4-OYCN6pCdyvTVKa_KmTh8PZlXm_GNg="
-                                alt="Hot beverages"
+                                class="service-images service-icon"
+                                src="https://png.pngtree.com/png-clipart/20210225/ourlarge/pngtree-brown-ordinary-open-door-clipart-png-image_2953255.jpg"
+                                alt="Eco-friendly"
                             />
                             <div class="service-message">
-                                <h3>Always serve at the right temperature!</h3>
+                                <h3>Second hand and new book available!</h3>
                                 <p>
-                                    We always assure that the drinks you order
-                                    to us is neither hot nor cold. Depending on
-                                    your request, we will send it at a preserved
-                                    temperature so that it will satisfy your
-                                    taste.
+                                    Buy second hand books and get great deals.
+                                    Be a part of change with us. Get the fresh
+                                    and second-hand copies all at one place.
                                 </p>
                             </div>
                         </div>
                         <div class="service">
                             <img
                                 class="services-images"
-                                src="https://media.istockphoto.com/photos/mailbox-with-books-3d-rendering-isolated-on-white-background-picture-id1130336342?k=20&m=1130336342&s=612x612&w=0&h=3XgQd8xebYCzHsvzvxYCRbKP-Fu311-uI78zyP_8aI0="
-                                alt="Fast delivery"
+                                src="https://media.istockphoto.com/vectors/books-swap-exchange-or-crossing-vector-illustration-with-hand-gives-vector-id1328717786?k=20&m=1328717786&s=612x612&w=0&h=g_MFweJ45fWDd3m9dk2kNO9yqZ6ERKiOUk66rDhBOAk="
+                                alt="experience something new"
                             />
                             <div class="service-message">
-                                <h3>Delivery in no time!</h3>
+                                <h3>Exchange/ Book Swap!</h3>
                                 <p>
-                                    We make sure that all the orders will be
-                                    delivered as soon as the processing took
-                                    place. We would not want to delay any moment
-                                    for your favorite drinks.
+                                    {" "}
+                                    Share what you have without risking any
+                                    information. Exchang your books for a period
+                                    or swap them with the people in need and let
+                                    us deliver and do all the work.
                                 </p>
                             </div>
                         </div>
@@ -128,10 +123,7 @@ const Landing = () => {
                         <h2>We are right here.</h2>
                         <p>How can we assist you.</p>
                     </div>
-                    <form
-                        action="../confirmation-contact-us/ccu.html"
-                        id="form"
-                    >
+                    <form action="/" id="form" method="get">
                         <div class="form-group">
                             <label for="email">Email Address</label>
                             <input
