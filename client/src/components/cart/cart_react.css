@@ -133,3 +133,20 @@
     color: teal;
     font-weight: bold;
 }
+
+.razor_pay {
+    padding: 0.6rem;
+    border-radius: 0.4rem;
+    font-weight: 700;
+    font-style: italic;
+    font-size: 1rem;
+    color: #fff;
+    background-color: #034efc;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    border: 0;
+}
+
+.razor_pay:hover {
+    background-color: rgb(3, 78, 252, 0.8);
+}

@@ -23,6 +23,7 @@ const corsOptions = {
 app.use(cors(corsOptions));
 app.use(bodyParser.json());
 app.use(cookieParser());
+app.use(express.json({ extended: false }));
 
 app.use(
     session({
@@ -36,6 +37,8 @@ app.use(
         },
     })
 )
+
+app.use("/payment", require("./router/payment"));
 
 app.use((req, res, next) => {
     if (req.cookies.user_sid && !req.session.user) {
@@ -51,7 +54,6 @@ const sessionChecker = (req, res, next) => {
         next();
     }
 };
-
 
 //route for landing page , shown even when not logged in
 app.get("/", sessionChecker, (req, res) => {

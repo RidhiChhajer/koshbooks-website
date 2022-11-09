@@ -6,16 +6,16 @@ import { useParams, useHistory } from "react-router-dom";
 import API from "../../api/api";
 import axios from "axios";
 import Cookies from "js-cookie";
-import { useDispatch } from "react-redux";
-import { addProduct } from "../../redux/cartSlice";
+import { CartState } from "../../context";
 
 const BookDetails = () => {
-    const dispatch = useDispatch();
     const { id } = useParams();
     const [book, setBook] = useState();
     const [quantity, setQuantity] = useState(1);
     const [price, setPrice] = useState(0);
     const history = useHistory();
+    const { cart, setCart } = CartState();
+    console.log(cart);
 
     const addQuantity = () => {
         if (quantity < 10) setQuantity(quantity + 1);
@@ -38,7 +38,11 @@ const BookDetails = () => {
     }, []);
 
     const handleClick = () => {
-        dispatch(addProduct({ ...book, price, quantity }));
+        setCart((prev) => ({
+            products: [...prev.products, book],
+            quantity: prev.quantity + quantity,
+            total: prev.total + price,
+        }));
     };
 
     return (

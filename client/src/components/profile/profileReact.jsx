@@ -6,12 +6,10 @@ import axios from "axios";
 import API from "../../api/api";
 import Cookies from "js-cookie";
 import { useHistory } from "react-router-dom";
-import { useSelector } from "react-redux";
 
 const ProfileReact = () => {
     const [user, setUser] = useState();
     const history = useHistory();
-    const cart = useSelector((state) => state.cart);
 
     const Logout = () => {
         Cookies.remove("user_sid");

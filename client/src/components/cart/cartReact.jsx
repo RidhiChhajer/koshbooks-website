@@ -1,4 +1,3 @@
-import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import "./cart_react.css";
 import { Helmet } from "react-helmet";
@@ -9,18 +8,17 @@ import {
 } from "@paypal/react-paypal-js";
 import axios from "axios";
 import Navbar from "../Navbar";
-import { reset } from "../../redux/cartSlice";
 import { useHistory } from "react-router-dom";
+import { CartState } from "../../context";
 
 const Cart = () => {
-    const cart = useSelector((state) => state.cart);
+    const { cart } = CartState();
     const [open, setOpen] = useState(false);
     const [cash, setCash] = useState(false);
-    const amount = cart.total;
+    const amount = 0;
     const currency = "USD";
     const style = { layout: "vertical" };
     const history = useHistory();
-    const dispatch = useDispatch();
 
     const createOrder = async (data) => {
         try {
@@ -85,7 +83,7 @@ const Cart = () => {
                             createOrder({
                                 customer: shipping.name.full_name,
                                 address: shipping.address.address_line_1,
-                                total: cart.total,
+                                total: 1,
                                 method: 1,
                             });
                         });
@@ -94,6 +92,79 @@ const Cart = () => {
             </>
         );
     };
+
+    function loadScript(src) {
+        return new Promise((resolve) => {
+            const script = document.createElement("script");
+            script.src = src;
+            script.onload = () => {
+                resolve(true);
+            };
+            script.onerror = () => {
+                resolve(false);
+            };
+            document.body.appendChild(script);
+        });
+    }
+
+    async function displayRazorpay() {
+        const res = await loadScript(
+            "https://checkout.razorpay.com/v1/checkout.js"
+        );
+
+        if (!res) {
+            alert("Razorpay SDK failed to load. Are you online?");
+            return;
+        }
+
+        const result = await axios.post("http://localhost:5000/payment/orders");
+
+        if (!result) {
+            alert("Server error. Are you online?");
+            return;
+        }
+
+        const { amount, id: order_id, currency } = result.data;
+
+        const options = {
+            key: "rzp_test_5uFNte2ng1rkYG", // Enter the Key ID generated from the Dashboard
+            amount: amount.toString(),
+            currency: currency,
+            name: "KoshBooks",
+            description: "Test Transaction",
+            image: "",
+            order_id: order_id,
+            handler: async function (response) {
+                const data = {
+                    orderCreationId: order_id,
+                    razorpayPaymentId: response.razorpay_payment_id,
+                    razorpayOrderId: response.razorpay_order_id,
+                    razorpaySignature: response.razorpay_signature,
+                };
+
+                const result = await axios.post(
+                    "http://localhost:5000/payment/success",
+                    data
+                );
+
+                alert(result.data.msg);
+            },
+            prefill: {
+                name: "Soumya Dey",
+                email: "SoumyaDey@example.com",
+                contact: "9999999999",
+            },
+            notes: {
+                address: "Soumya Dey Corporate Office",
+            },
+            theme: {
+                color: "#61dafb",
+            },
+        };
+
+        const paymentObject = new window.Razorpay(options);
+        paymentObject.open();
+    }
 
     return (
         <>
@@ -157,10 +228,12 @@ const Cart = () => {
                     <div className="wrapper_c">
                         <h2 className="title_c">CART TOTAL</h2>
                         <div className="total_text_c">
-                            <b className="totalTextTitle_c">Quantity:</b>2
+                            <b className="totalTextTitle_c">Quantity:</b>
+                            {cart.quantity}
                         </div>
                         <div className="total_text_c">
-                            <b className="totalTextTitle_c">Total:</b>$ 500
+                            <b className="totalTextTitle_c">Total:</b>${" "}
+                            {cart.total}
                         </div>
                         {open ? (
                             <div className="payment_methods">
@@ -184,6 +257,12 @@ const Cart = () => {
                                         showSpinner={false}
                                     />
                                 </PayPalScriptProvider>
+                                <button
+                                    className="razor_pay"
+                                    onClick={displayRazorpay}
+                                >
+                                    RazorPay
+                                </button>
                             </div>
                         ) : (
                             <button

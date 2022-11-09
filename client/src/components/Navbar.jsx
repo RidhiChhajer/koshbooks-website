@@ -1,13 +1,14 @@
 import React from "react";
-import { useSelector } from "react-redux";
 import "./nav.css";
+import { Link } from "react-router-dom";
+import { CartState } from "../context";
 
 const Navbar = () => {
-    const quantity = useSelector((state) => state.cart.quantity);
+    const { cart } = CartState();
     return (
         <div id="header">
             <div class="navigation">
-                <a href="/">
+                <Link to="/">
                     <img
                         src="https://raw.githubusercontent.com/RidhiChhajer/koshbooks-website/main/koshbooks-website/assets/logo-removebg-preview.png"
                         id="header-img"
@@ -15,34 +16,34 @@ const Navbar = () => {
                         width="80"
                         height="60"
                     />
-                </a>
+                </Link>
 
                 <div class="navigate">
-                    <a href="/explore" className="ll">
+                    <Link to="/explore" className="ll">
                         <div className="navi">
                             <i class="fa-solid fa-bars"></i>
                             <div>Menu</div>
                         </div>
-                    </a>
-                    <a href="/wishlist" className="ll">
+                    </Link>
+                    <Link to="/wishlist" className="ll">
                         <div className="navi">
                             <i class="fa-solid fa-heart"></i>
                             <div>Wishlist</div>
                         </div>
-                    </a>
-                    <a href="/profile" className="ll">
+                    </Link>
+                    <Link to="/profile" className="ll">
                         <div className="navi">
                             <i class="fa-solid fa-user"></i>
                             <div>Profile</div>
                         </div>
-                    </a>
-                    <a href="/cart" className="ll">
+                    </Link>
+                    <Link to="/cart" className="ll">
                         <div className="navi">
                             <i class="fa-solid fa-cart-shopping"></i>
                             <div>Cart</div>
-                            <div className="cart_quantity">{quantity}</div>
+                            <div className="cart_quantity">{cart.quantity}</div>
                         </div>
-                    </a>
+                    </Link>
                 </div>
             </div>
         </div>
