@@ -15,7 +15,6 @@ const BookDetails = () => {
     const [price, setPrice] = useState(0);
     const history = useHistory();
     const { cart, setCart } = CartState();
-    console.log(cart);
 
     const addQuantity = () => {
         if (quantity < 10) setQuantity(quantity + 1);

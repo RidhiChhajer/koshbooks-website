@@ -24,7 +24,7 @@ app.use(cors(corsOptions));
 app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(express.json({ extended: false }));
-
+app.set('trust proxy', 1)
 app.use(
     session({
         key: 'user_sid',
@@ -33,7 +33,9 @@ app.use(
         saveUninitialized: false,
         cookie: {
             expires: 600000,
-            httpOnly: false
+            httpOnly: false,
+            sameSite: "lax",
+            secure: false,
         },
     })
 )
@@ -64,6 +66,7 @@ app.use("/book", bookRouter);
 app.use("/wish", wishRouter);
 app.use("/feedback", feedbackRouter);
 app.get("/user", (req, res) => {
+    console.log(req.session.user);
     if (req.session.user != null) {
         res.status(200).send(req.session.user);
     } else {
