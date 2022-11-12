@@ -10,18 +10,19 @@ import axios from "axios";
 const Login = () => {
     const [signup, setSignup] = useState(false);
     const history = useHistory();
+
     const googleSuccess = async (res) => {
         try {
             const profile = res.profileObj;
             const mail = profile.email;
             const username = profile.givenName + profile.googleId.slice(10);
-            const data = await axios.post(
-                API + "login",
+            await axios.post(
+                API + "signup",
                 {
-                    google: true,
                     mail,
                     username,
-                    password: profile.googleId,
+                    password: profile.googleId.slice(10),
+                    phone: profile.googleId.slice(10),
                 },
                 {
                     withCredentials: true,
@@ -58,7 +59,6 @@ const Login = () => {
         const data = await axios.post(
             API + "login",
             {
-                google: false,
                 mail,
                 password,
             },
@@ -80,13 +80,19 @@ const Login = () => {
         const phone = event.target[2].value;
         const birthdate = event.target[3].value;
         const password = event.target[4].value;
-        const data = await axios.post(API + "signup", {
-            username,
-            mail,
-            password,
-            phone,
-            birthdate,
-        });
+        const data = await axios.post(
+            API + "signup",
+            {
+                username,
+                mail,
+                password,
+                phone,
+                birthdate,
+            },
+            {
+                withCredentials: true,
+            }
+        );
         if (data.data.user != null) {
             history.push("/explore");
         } else {

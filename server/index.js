@@ -16,7 +16,7 @@ const feedbackRouter = require('./router/feedbackRouter');
 dotenv.config();
 app.use(morgan("dev"));
 const corsOptions = {
-    origin: 'http://localhost:3000',
+    origin: [ "https://koshbooks.vercel.app" ],
     credentials: true,
     optionSuccessStatus: 200,
 }
@@ -33,9 +33,9 @@ app.use(
         saveUninitialized: false,
         cookie: {
             expires: 600000,
-            httpOnly: false,
-            sameSite: "lax",
-            secure: false,
+            // httpOnly: false,
+            sameSite: "none",
+            secure: true,
         },
     })
 )
@@ -73,6 +73,11 @@ app.get("/user", (req, res) => {
         res.status(401).send({ message: 'Unauthorized' });
     }
 });
+app.delete("/user", (req, res) => {
+    req.session.user = null;
+    req.cookies.user_sid = null;
+    res.send({ message: "Cookie cleared" });
+});
 
 // route for user logout
 app.get("/logout", (req, res) => {
@@ -103,29 +108,15 @@ app
                 res.status(201).json({ message: "No such user exists" });
                 console.log("Error");
             }
-            if (!req.body.google) {
+            if (user) {
                 user.comparePassword(password, (error, match) => {
                     if (!match) {
                         res.status(201).json({ message: "Wrong credentials" });
-                        console.log("User not exists");
                     }
                 });
             }
-            if (req.body.google && user == null) {
-                User.create({
-                    username: req.body.username,
-                    mail: req.body.mail,
-                    password: req.body.password
-                })
-                    .then((user) => {
-                        req.session.user = user;
-                        res.status(200).json({ message: "Signed up and logged in" });
-                    })
-                    .catch((err) => console.log(err));
-            } else {
-                req.session.user = user;
-                res.status(200).json({ user });
-            }
+            req.session.user = user;
+            res.status(200).json({ user });
         } catch (error) {
             console.log(error)
         }
@@ -133,23 +124,26 @@ app
 
 app
     .route("/signup")
-    .post((req, res) => {
-        var user = new User({
+    .post(async (req, res) => {
+        const mail = req.body.mail;
+        var user = await User.findOne({ mail }).exec();
+        if (user) {
+            req.session.user = user;
+            res.status(200).json({ user });
+        }
+        await User.create({
             username: req.body.username,
             phone: req.body.phone,
             password: req.body.password,
             birthdate: req.body.birthdate,
             mail: req.body.mail,
             role: req.body.phone === process.env.ADMIN_PHONE ? "ADMIN" : "USER",
-        });
-        user.save((err, docs) => {
-            if (err) {
-                res.status(401).json({ message: "Error" });
-            } else {
-                req.session.user = docs;
+        })
+            .then((user) => {
+                req.session.user = user;
                 res.status(200).json({ user });
-            }
-        });
+            })
+            .catch((err) => console.log(err));
     });
 
 // route for handling 404 requests(unavailable routes)

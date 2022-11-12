@@ -11,8 +11,10 @@ const ProfileReact = () => {
     const [user, setUser] = useState();
     const history = useHistory();
 
-    const Logout = () => {
-        Cookies.remove("user_sid");
+    const Logout = async () => {
+        await axios.delete(API + `user`, {
+            withCredentials: true,
+        });
         history.push("/");
     };
 
@@ -26,6 +28,7 @@ const ProfileReact = () => {
     useEffect(() => {
         fetchUser();
     }, []);
+
     return (
         <div className="profile_back_pp">
             <Helmet>
